@@ -1,67 +1,95 @@
 package controllers;
 
 import java.sql.*;
+import java.util.LinkedList;
 import java.util.Properties;
+
+import data.StringConstants;
+import data.CommandResult;
+import data.UpdateResult;
+import data.QueryResult;
 
 public class SqlController {
 
-    public static void main(String[] args) throws Exception {
+    Connection connection = null;
 
-        // Inititalize connection variables
-        String host = "carims.postgres.database.azure.com";
-        String database = "postgres";
-        String user = "carimsadmin@carims";
-        String password =  "zvWiZcGNcTn6hy54";
-
+    public SqlController() throws ClassNotFoundException, SQLException {
         // Check that the driver is installed
-        try {
-            Class.forName("org.postgresql.Driver");
-        }
-        catch (ClassNotFoundException e) {
-            throw new ClassNotFoundException("PostgreSQL JDBC driver NOT detected in library path.", e);
-        }
-
-        System.out.println("PostgreSQL JDBC driver detected in library path.");
-
-        Connection connection = null;
+        Class.forName("org.postgresql.Driver");
 
         // Initialize connection object
+        String url = String.format("jdbc:postgresql://%s/%s", StringConstants.HOST, StringConstants.DATABASE);
+
+        // set up the connection properties
+        Properties properties = new Properties();
+        properties.setProperty("user", StringConstants.USER);
+        properties.setProperty("password", StringConstants.PASSWORD);
+
+        // get connection
+        connection = DriverManager.getConnection(url, properties);
+
+        if (connection == null) {
+            throw new NullPointerException("Failed to create connection to database.");
+        }
+    }
+
+    public CommandResult executeCommand(String query) throws SQLException {
+        Statement stmt = null;
         try {
-            String url = String.format("jdbc:postgresql://%s/%s", host, database);
-
-            // set up the connection properties
-            Properties properties = new Properties();
-            properties.setProperty("user", user);
-            properties.setProperty("password", password);
-//            properties.setProperty("ssl", "true");
-
-            // get connection
-            connection = DriverManager.getConnection(url, properties);
+            stmt = connection.createStatement();
+            stmt.execute(query);
+            CommandResult result = new CommandResult(true);
+            return result;
+        } catch (SQLException e) {
+            CommandResult result = new CommandResult(false);
+            return result;
         }
-        catch (SQLException e) {
-            throw new SQLException("Failed to create connection to database.", e);
+    }
+
+
+    public UpdateResult executeUpdate(String query) throws SQLException {
+        Statement stmt = null;
+        try {
+            stmt = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            int n = stmt.executeUpdate(query);
+            UpdateResult result = new UpdateResult(true, n);
+            return result;
+        } catch (SQLException e) {
+            UpdateResult result = new UpdateResult(false, -1);
+            return result;
         }
-        if (connection != null) {
-            System.out.println("Successfully created connection to database.");
+    }
 
-            // Perform some SQL queries over the connection.
-            try {
-                // Drop previous table of same name if one exists.
-                Statement statement = connection.createStatement();
-                statement.execute("DROP TABLE IF EXISTS inventory;");
-                System.out.println("Finished dropping table (if existed).");
+    public QueryResult executeQuery(String query) throws SQLException {
+        Statement stmt = null;
+        try {
+            stmt = connection.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+            ResultSet rs = stmt.executeQuery(query);
+            Object[] queryArray = proceedResultSet(rs);
+            rs.close();
+            QueryResult result = new QueryResult(true, queryArray);
+            return result;
+        } catch (SQLException e) {
+            QueryResult result = new QueryResult(false, null);
+            return result;
+        }
+    }
 
-                // Create table
-                statement.execute("CREATE TABLE inventory (id serial PRIMARY KEY, name VARCHAR(50), quantity INTEGER);");
-                System.out.println("Created table");
+    private Object[] proceedResultSet(ResultSet rs) throws SQLException {
+        ResultSetMetaData rsmd = rs.getMetaData();
+        int ncolumns = rsmd.getColumnCount();
+        LinkedList<Object[]> list = new LinkedList<Object[]>();
+        Object[] tempObj = new Object[ncolumns];
+        for (int i = 0; i < ncolumns; i++) {
+            tempObj[i] = rsmd.getColumnName(i+1);
+        }
+        list.add(tempObj);
+        while (rs.next()) {
+            for (int i = 0; i < ncolumns; i++) {
+                tempObj[i] = rs.getObject(i+1);
             }
-            catch (SQLException e) {
-                throw new SQLException("Encountered an error when executing given sql statement.", e);
-            }
+            list.add(tempObj);
         }
-        else {
-            System.out.println("Failed to create connection to database.");
-        }
-        System.out.println("Execution finished.");
+        return list.toArray();
     }
 }
