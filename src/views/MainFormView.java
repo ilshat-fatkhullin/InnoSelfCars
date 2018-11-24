@@ -32,6 +32,6 @@ public class MainFormView {
         primaryStage.setTitle(StringConstants.MAIN_FORM_TITLE);
         primaryStage.show();
         primaryStage.setMinWidth(725);
-        primaryStage.setMinHeight(350);
+        primaryStage.setMinHeight(550);
     }
 }
