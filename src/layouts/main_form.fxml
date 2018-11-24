@@ -23,7 +23,7 @@
             <ChoiceBox fx:id="tableChoiceBox" layoutX="14.0" layoutY="107.0" prefWidth="150.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="107.0" />
             <Label layoutX="17.0" layoutY="45.0" text="Method" AnchorPane.leftAnchor="17.0" AnchorPane.topAnchor="45.0" />
             <Label layoutX="14.0" layoutY="90.0" text="Table" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="90.0" />
-            <TableView layoutX="275.0" layoutY="1.0" prefHeight="300.0" prefWidth="450.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <TableView fx:id="resultTableView" layoutX="275.0" layoutY="1.0" prefHeight="300.0" prefWidth="450.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <columns>
                 <TableColumn prefWidth="75.0" text="C1" />
                 <TableColumn prefWidth="75.0" text="C2" />
