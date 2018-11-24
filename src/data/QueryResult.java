@@ -1,15 +1,18 @@
 package data;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class QueryResult extends Result{
 
-    public Object[] getResult() {
-        return result;
+    public ArrayList<ArrayList<String>> getData() {
+        return data;
     }
 
-    private Object[] result;
+    private ArrayList<ArrayList<String>> data;
 
-    public QueryResult(boolean status, Object[] result) {
+    public QueryResult(boolean status, ArrayList<ArrayList<String>> data) {
         this.isSuccessful = status;
-        this.result = result;
+        this.data = data;
     }
 }

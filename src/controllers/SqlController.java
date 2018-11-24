@@ -1,13 +1,17 @@
 package controllers;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Properties;
 
 import data.StringConstants;
 import data.CommandResult;
 import data.UpdateResult;
 import data.QueryResult;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class SqlController {
 
@@ -33,7 +37,7 @@ public class SqlController {
         }
     }
 
-    public CommandResult executeCommand(String query) throws SQLException {
+    public CommandResult executeCommand(String query) {
         Statement stmt = null;
         try {
             stmt = connection.createStatement();
@@ -47,7 +51,7 @@ public class SqlController {
     }
 
 
-    public UpdateResult executeUpdate(String query) throws SQLException {
+    public UpdateResult executeUpdate(String query) {
         Statement stmt = null;
         try {
             stmt = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
@@ -60,12 +64,12 @@ public class SqlController {
         }
     }
 
-    public QueryResult executeQuery(String query) throws SQLException {
+    public QueryResult executeQuery(String query) {
         Statement stmt = null;
         try {
             stmt = connection.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
             ResultSet rs = stmt.executeQuery(query);
-            Object[] queryArray = proceedResultSet(rs);
+            ArrayList<ArrayList<String>> queryArray = proceedResultSet(rs);
             rs.close();
             QueryResult result = new QueryResult(true, queryArray);
             return result;
@@ -75,21 +79,25 @@ public class SqlController {
         }
     }
 
-    private Object[] proceedResultSet(ResultSet rs) throws SQLException {
-        ResultSetMetaData rsmd = rs.getMetaData();
-        int ncolumns = rsmd.getColumnCount();
-        LinkedList<Object[]> list = new LinkedList<Object[]>();
-        Object[] tempObj = new Object[ncolumns];
-        for (int i = 0; i < ncolumns; i++) {
-            tempObj[i] = rsmd.getColumnName(i+1);
+    private ArrayList<ArrayList<String>> proceedResultSet(ResultSet rs) throws SQLException {
+        ResultSetMetaData resultSetMetaData = rs.getMetaData();
+        int numberOfColumns = resultSetMetaData.getColumnCount();
+
+        ArrayList<ArrayList<String>> resultList = new ArrayList<>();
+        ArrayList<String> row = new ArrayList<>();
+
+        for (int i = 0; i < numberOfColumns; i++) {
+            row.add(resultSetMetaData.getColumnName(i + 1));
         }
-        list.add(tempObj);
+
+        resultList.add(row);
         while (rs.next()) {
-            for (int i = 0; i < ncolumns; i++) {
-                tempObj[i] = rs.getObject(i+1);
+            row = new ArrayList<>();
+            for (int i = 0; i < numberOfColumns; i++) {
+                row.add(rs.getString(i + 1));
             }
-            list.add(tempObj);
+            resultList.add(row);
         }
-        return list.toArray();
+        return resultList;
     }
 }

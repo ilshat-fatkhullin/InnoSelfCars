@@ -1,15 +1,23 @@
 package controllers;
 
+import data.CommandResult;
+import data.ConnectionResult;
+import data.QueryResult;
+import data.UpdateResult;
+import javafx.application.Platform;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
+import javafx.util.Callback;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellDataFeatures;
 
-import java.util.List;
-
-public class MainFormController {
+public class MainFormController implements RequestControllerListener {
 
     @FXML
     private Button recoverButton;
@@ -67,7 +75,10 @@ public class MainFormController {
             onCommandTextFieldTextChanged();
         });
 
-        requestController = new RequestController();
+        appendIntoTerminal("Connecting to database...");
+        isProceeding = true;
+
+        requestController = new RequestController(this);
     }
 
     @FXML
@@ -123,27 +134,81 @@ public class MainFormController {
             commandTextField.setText("");
     }
 
-    private void handleCommandResult(Boolean isSuccessful) {
+    public void handleCommandResult(CommandResult result) {
         isProceeding = false;
 
-        if (isSuccessful) {
+        if (result.isSuccessful()) {
             appendIntoTerminal("Command is successfully done.");
         } else {
             appendIntoTerminal("An error occurred during command execution.");
         }
     }
 
-    private void handleQueryResult(Boolean isSuccessful, List data) {
+    public void handleQueryResult(QueryResult result) {
         isProceeding = false;
 
-        if (isSuccessful) {
+        if (result.isSuccessful()) {
             appendIntoTerminal("Query is successfully done.");
         } else {
             appendIntoTerminal("An error occurred during query execution.");
             return;
         }
 
-        ObservableList observableData = FXCollections.observableList(data);
-        resultTableView.setItems(observableData);
+        Platform.runLater(() -> updateResultTableView(result));
+    }
+
+    public void handleUpdateResult(UpdateResult result) {
+        isProceeding = false;
+
+        if (result.isSuccessful()) {
+            appendIntoTerminal("Update is successfully done.");
+        } else {
+            appendIntoTerminal("An error occurred during update execution.");
+            return;
+        }
+
+        appendIntoTerminal("Number of changed entries: " + result.getCount());
+    }
+
+    public void handleConnectionResult(ConnectionResult result) {
+        isProceeding = false;
+
+        if (result.isSuccessful()) {
+            appendIntoTerminal("Connection established.");
+        } else {
+            appendIntoTerminal("Connection failed.");
+        }
+    }
+
+    public void handleWrongRequest() {
+        isProceeding = false;
+        appendIntoTerminal("Syntax error.");
+    }
+
+    private void updateResultTableView(QueryResult result) {
+        ObservableList<ObservableList> observableRows = FXCollections.observableArrayList();
+
+        resultTableView.getColumns().clear();
+
+        for (int i = 0; i < result.getData().get(0).size(); i++) {
+            final int j = i;
+            TableColumn col = new TableColumn(result.getData().get(0).get(i));
+            col.setCellValueFactory(new Callback<CellDataFeatures<ObservableList, String>, ObservableValue<String>>() {
+                public ObservableValue<String> call(CellDataFeatures<ObservableList, String> param) {
+                    return new SimpleStringProperty(param.getValue().get(j).toString());
+                }
+            });
+
+            resultTableView.getColumns().addAll(col);
+        }
+
+        for (int i = 1; i < result.getData().size(); i++) {
+            ObservableList<String> row = FXCollections.observableArrayList();
+            row.addAll(result.getData().get(i));
+            observableRows.add(row);
+        }
+
+        resultTableView.getItems().clear();
+        resultTableView.setItems(observableRows);
     }
 }
