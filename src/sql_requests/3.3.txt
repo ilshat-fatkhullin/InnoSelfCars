@@ -1,0 +1,19 @@
+SELECT *
+FROM (SELECT count(rentid) AS morning
+      FROM RentHistory
+      WHERE date >= '#2018-11-19#'
+        AND date < '#2018-11-26#'
+        AND time >= '#7:00#'
+        AND time <= '#10:00#') AS morning,
+     (SELECT count(rentid) AS afternoon
+      FROM RentHistory
+      WHERE date >= '#2018-11-19#'
+        AND date < '#2018-11-26#'
+        AND time >= '#12:00#'
+        AND time <= '#14:00#') AS afternoon,
+     (SELECT count(rentid) AS evening
+      FROM RentHistory
+      WHERE date >= '#2018-11-19#'
+        AND date < '#2018-11-26#'
+        AND time >= '#17:00#'
+        AND time <= '#19:00#') AS evening;

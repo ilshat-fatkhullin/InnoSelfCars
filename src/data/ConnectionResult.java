@@ -11,7 +11,7 @@ public class ConnectionResult extends Result {
     private SqlController sqlController;
 
     public ConnectionResult(boolean isSuccessful, SqlController sqlController) {
-        this.isSuccessful = isSuccessful;
+        super(isSuccessful);
         this.sqlController = sqlController;
     }
 }

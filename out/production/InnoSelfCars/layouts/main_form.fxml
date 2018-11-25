@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
@@ -29,12 +30,17 @@
                         <TableColumn prefWidth="75.0" text="C2" />
                     </columns>
                 </TableView>
-                <TextArea fx:id="terminalTextArea" editable="false" layoutX="14.0" layoutY="184.0" prefHeight="262.0" prefWidth="270.0" AnchorPane.bottomAnchor="54.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="184.0" />
+                <TextArea fx:id="terminalTextArea" editable="false" layoutX="14.0" layoutY="184.0" prefHeight="285.0" prefWidth="270.0" AnchorPane.bottomAnchor="33.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="184.0">
+               <font>
+                  <Font name="Consolas Bold" size="12.0" />
+               </font></TextArea>
                 <Label layoutX="14.0" layoutY="156.0" text="Terminal:" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="156.0" />
                 <Button fx:id="runButton" layoutX="239.0" layoutY="62.0" mnemonicParsing="false" onAction="#handleRunButtonAction" prefHeight="25.0" prefWidth="45.0" text="Run" AnchorPane.leftAnchor="239.0" AnchorPane.topAnchor="62.0" />
                 <Button fx:id="showButton" layoutX="239.0" layoutY="107.0" mnemonicParsing="false" onAction="#handleShowButtonAction" text="Show" />
-                <TextField fx:id="commandTextField" layoutX="15.0" layoutY="475.0" maxWidth="270.0" minWidth="222.0" onKeyPressed="#onCommandLineKeyPressed" prefHeight="25.0" prefWidth="270.0" />
-                <Label layoutX="15.0" layoutY="458.0" text="Command:" />
+                <TextField fx:id="commandTextField" layoutX="15.0" layoutY="475.0" maxWidth="270.0" minWidth="222.0" onKeyPressed="#onCommandLineKeyPressed" prefHeight="25.0" prefWidth="270.0" promptText="Enter your custom query...">
+               <font>
+                  <Font name="Consolas Bold" size="12.0" />
+               </font></TextField>
                 <Button fx:id="reconnectButton" layoutX="126.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleReconnectButtonAction" text="Reconnect" AnchorPane.leftAnchor="126.0" AnchorPane.topAnchor="14.0" />
             <Button fx:id="clearButton" layoutX="239.0" layoutY="152.0" mnemonicParsing="false" onAction="#handleClearButtonAction" prefHeight="25.0" prefWidth="45.0" text="Clear" />
             </children>

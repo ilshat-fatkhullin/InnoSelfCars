@@ -1,9 +1,6 @@
 package controllers;
 
-import data.CommandResult;
-import data.ConnectionResult;
-import data.QueryResult;
-import data.UpdateResult;
+import data.*;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -65,33 +62,38 @@ public class RequestController {
     }
 
     private void handleCommandResult(CommandResult result) {
-        for (int i = 0; i < listeners.size(); i++) {
-            listeners.get(i).handleCommandResult(result);
+        for (RequestControllerListener listener : listeners) {
+            listener.handleCommandResult(result);
+            listener.handleResult(result);
         }
     }
 
     private void handleQueryResult(QueryResult result) {
-        for (int i = 0; i < listeners.size(); i++) {
-            listeners.get(i).handleQueryResult(result);
+        for (RequestControllerListener listener : listeners) {
+            listener.handleQueryResult(result);
+            listener.handleResult(result);
         }
     }
 
     private void handleUpdateResult(UpdateResult result) {
-        for (int i = 0; i < listeners.size(); i++) {
-            listeners.get(i).handleUpdateResult(result);
+        for (RequestControllerListener listener : listeners) {
+            listener.handleUpdateResult(result);
+            listener.handleResult(result);
         }
     }
 
     private void handleConnectionResult(ConnectionResult result) {
         sqlController = result.getSqlController();
-        for (int i = 0; i < listeners.size(); i++) {
-            listeners.get(i).handleConnectionResult(result);
+        for (RequestControllerListener listener : listeners) {
+            listener.handleConnectionResult(result);
+            listener.handleResult(result);
         }
     }
 
     private void handleWrongRequest() {
-        for (int i = 0; i < listeners.size(); i++) {
-            listeners.get(i).handleWrongRequest();
+        for (RequestControllerListener listener : listeners) {
+            listener.handleWrongRequest();
+            listener.handleResult(new Result(false));
         }
     }
 
@@ -110,6 +112,8 @@ public class RequestController {
 }
 
 interface RequestControllerListener {
+
+    void handleResult(Result result);
 
     void handleCommandResult(CommandResult result);
 

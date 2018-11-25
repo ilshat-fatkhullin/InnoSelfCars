@@ -1,0 +1,646 @@
+DROP TABLE IF EXISTS Addresses CASCADE;
+DROP TABLE IF EXISTS CarParts CASCADE;
+DROP TABLE IF EXISTS Cars CASCADE;
+DROP TABLE IF EXISTS ChargingHistory CASCADE;
+DROP TABLE IF EXISTS ChargingStations CASCADE;
+DROP TABLE IF EXISTS CSToPlugs CASCADE;
+DROP TABLE IF EXISTS Customers CASCADE;
+DROP TABLE IF EXISTS Locations CASCADE;
+DROP TABLE IF EXISTS ParkingHistory CASCADE;
+DROP TABLE IF EXISTS ParkingPlaces CASCADE;
+DROP TABLE IF EXISTS ParkingStations CASCADE;
+DROP TABLE IF EXISTS PaymentHistory CASCADE;
+DROP TABLE IF EXISTS Plugs CASCADE;
+DROP TABLE IF EXISTS Providers CASCADE;
+DROP TABLE IF EXISTS Provides CASCADE;
+DROP TABLE IF EXISTS ProvidingHistory CASCADE;
+DROP TABLE IF EXISTS RentHistory CASCADE;
+DROP TABLE IF EXISTS RepairingHistory CASCADE;
+DROP TABLE IF EXISTS Workshops CASCADE;
+DROP TABLE IF EXISTS WorkshopsHaveParts CASCADE;
+
+CREATE TABLE IF NOT EXISTS Cars (
+  cid   VARCHAR(20) PRIMARY KEY,
+  type  VARCHAR(30) NOT NULL,
+  color VARCHAR(20) NOT NULL
+);
+
+INSERT INTO Cars (cid, type, color)
+VALUES ('AN843G', 'Ford Focus', 'red');
+INSERT INTO Cars (cid, type, color)
+VALUES ('BE259L', 'Renault Megan', 'grey');
+INSERT INTO Cars (cid, type, color)
+VALUES ('AN043E', 'Renault Fluence', 'blue');
+INSERT INTO Cars (cid, type, color)
+VALUES ('TG392O', 'Ford Focus', 'red');
+INSERT INTO Cars (cid, type, color)
+VALUES ('PE234V', 'Ford Fiesta', 'yellow');
+INSERT INTO Cars (cid, type, color)
+VALUES ('SA843N', 'Renault Duster', 'black');
+INSERT INTO Cars (cid, type, color)
+VALUES ('DI151K', 'Renault Sandero', 'red');
+INSERT INTO Cars (cid, type, color)
+VALUES ('PI431D', 'Hyundai Solaris', 'white');
+INSERT INTO Cars (cid, type, color)
+VALUES ('FE246K', 'Hyundai Sonata', 'green');
+INSERT INTO Cars (cid, type, color)
+VALUES ('LS159P', 'Opel Astra', 'white');
+
+CREATE TABLE IF NOT EXISTS CarParts (
+  partid   INTEGER PRIMARY KEY,
+  partType VARCHAR(30) NOT NULL,
+  carType  VARCHAR(30) NOT NULL
+);
+
+INSERT INTO CarParts (partid, partType, carType)
+VALUES (1, 'Windshield washer motor', 'Ford Fiesta');
+INSERT INTO CarParts (partid, partType, carType)
+VALUES (2, 'Alternator', 'Ford Fiesta');
+INSERT INTO CarParts (partid, partType, carType)
+VALUES (3, 'Light sensor', 'Ford Fiesta');
+INSERT INTO CarParts (partid, partType, carType)
+VALUES (4, 'Windshield washer motor', 'Ford Focus');
+INSERT INTO CarParts (partid, partType, carType)
+VALUES (5, 'Alternator', 'Ford Focus');
+INSERT INTO CarParts (partid, partType, carType)
+VALUES (6, 'Light sensor', 'Ford Focus');
+INSERT INTO CarParts (partid, partType, carType)
+VALUES (7, 'Windshield washer motor', 'Renault Megan');
+INSERT INTO CarParts (partid, partType, carType)
+VALUES (8, 'Alternator', 'Renault Megan');
+INSERT INTO CarParts (partid, partType, carType)
+VALUES (9, 'Light sensor', 'Renault Megan');
+INSERT INTO CarParts (partid, partType, carType)
+VALUES (10, 'Windshield washer motor', 'Renault Duster');
+INSERT INTO CarParts (partid, partType, carType)
+VALUES (11, 'Alternator', 'Renault Duster');
+INSERT INTO CarParts (partid, partType, carType)
+VALUES (12, 'Light sensor', 'Renault Duster');
+INSERT INTO CarParts (partid, partType, carType)
+VALUES (13, 'Windshield washer motor', 'Renault Fluence');
+INSERT INTO CarParts (partid, partType, carType)
+VALUES (14, 'Alternator', 'Renault Fluence');
+INSERT INTO CarParts (partid, partType, carType)
+VALUES (15, 'Light sensor', 'Renault Fluence');
+INSERT INTO CarParts (partid, partType, carType)
+VALUES (16, 'Windshield washer motor', 'Renault Sandero');
+INSERT INTO CarParts (partid, partType, carType)
+VALUES (17, 'Alternator', 'Renault Sandero');
+INSERT INTO CarParts (partid, partType, carType)
+VALUES (18, 'Light sensor', 'Renault Sandero');
+
+CREATE TABLE IF NOT EXISTS Locations (
+  zipCode VARCHAR(10) PRIMARY KEY,
+  city    VARCHAR(20) NOT NULL,
+  country VARCHAR(20) NOT NULL
+);
+
+INSERT INTO Locations (zipCode, city, country)
+VALUES ('420000', 'Kazan', 'Russia');
+INSERT INTO Locations (zipCode, city, country)
+VALUES ('420004', 'Kazan', 'Russia');
+INSERT INTO Locations (zipCode, city, country)
+VALUES ('420008', 'Kazan', 'Russia');
+INSERT INTO Locations (zipCode, city, country)
+VALUES ('420030', 'Kazan', 'Russia');
+INSERT INTO Locations (zipCode, city, country)
+VALUES ('420049', 'Kazan', 'Russia');
+INSERT INTO Locations (zipCode, city, country)
+VALUES ('420039', 'Kazan', 'Russia');
+INSERT INTO Locations (zipCode, city, country)
+VALUES ('420071', 'Kazan', 'Russia');
+INSERT INTO Locations (zipCode, city, country)
+VALUES ('420073', 'Kazan', 'Russia');
+INSERT INTO Locations (zipCode, city, country)
+VALUES ('420074', 'Kazan', 'Russia');
+INSERT INTO Locations (zipCode, city, country)
+VALUES ('420075', 'Kazan', 'Russia');
+INSERT INTO Locations (zipCode, city, country)
+VALUES ('420076', 'Kazan', 'Russia');
+INSERT INTO Locations (zipCode, city, country)
+VALUES ('420202', 'Kazan', 'Russia');
+
+CREATE TABLE IF NOT EXISTS Customers (
+  username    VARCHAR(20) PRIMARY KEY,
+  firstName   VARCHAR(20) NOT NULL,
+  secondName  VARCHAR(20) NOT NULL,
+  email       VARCHAR(20) NOT NULL,
+  phoneNumber VARCHAR(15) NOT NULL,
+  location    VARCHAR(10) NOT NULL NOT NULL,
+  cardNumber  VARCHAR(30) NOT NULL,
+  FOREIGN KEY (location) REFERENCES Locations (zipCode)
+);
+
+INSERT INTO Customers (username, firstName, secondName, email, phoneNumber, location, cardNumber)
+VALUES ('245', 'Alex', 'Ivanov', 'a.ivanov@gmail.com', '+79437458723', '420202', '5674-8746-9323-9374');
+INSERT INTO Customers (username, firstName, secondName, email, phoneNumber, location, cardNumber)
+VALUES ('12', 'Nikolay', 'Rozvanov', 'n.rozvanov@gmail.com', '+79368267436', '420076', '6473-5738-2452-7543');
+INSERT INTO Customers (username, firstName, secondName, email, phoneNumber, location, cardNumber)
+VALUES ('239', 'Jerald', 'Ortega', 'j.ortega@bing.com', '+78356729473', '420076', '8435-3526-7655-3035');
+INSERT INTO Customers (username, firstName, secondName, email, phoneNumber, location, cardNumber)
+VALUES ('85', 'Seth', 'Ross', 's.ross@yandex.ru', '+78928632747', '420000', '8743-3253-2523-6454');
+INSERT INTO Customers (username, firstName, secondName, email, phoneNumber, location, cardNumber)
+VALUES ('146', 'Luther', 'Lucas', 'l.lucas@gmail.com', '+79829470342', '420030', '5435-2414-6543-2353');
+INSERT INTO Customers (username, firstName, secondName, email, phoneNumber, location, cardNumber)
+VALUES ('8547', 'Josh', 'Byrd', 'j.byrd@innopolis.ru', '+79728457328', '420049', '8573-2342-7433-6846');
+INSERT INTO Customers (username, firstName, secondName, email, phoneNumber, location, cardNumber)
+VALUES ('932', 'Ismael', 'Reid', 'i.reid@mail.ru', '+79327645682', '420073', '2461-3516-3425-3424');
+INSERT INTO Customers (username, firstName, secondName, email, phoneNumber, location, cardNumber)
+VALUES ('18', 'Ada', 'Anderson', 'a.anderson@yahoo.com', '+78636728898', '420076', '4324-2146-4353-1353');
+
+CREATE TABLE IF NOT EXISTS RentHistory (
+  rentid                                  SERIAL PRIMARY KEY,
+  customer                                VARCHAR(20) NOT NULL,
+  servedCar                               VARCHAR(20) NOT NULL,
+  pickUpLocation                          VARCHAR(10) NOT NULL,
+  date                                    DATE        NOT NULL,
+  time                                    TIME        NOT NULL,
+  duration                                REAL        NOT NULL,
+  distanceToPickUpLocation                REAL        NOT NULL,
+  distanceFromPickupLocationToDestination REAL        NOT NULL,
+  FOREIGN KEY (pickUpLocation) REFERENCES Locations (zipCode),
+  FOREIGN KEY (servedCar) REFERENCES Cars (cid),
+  FOREIGN KEY (customer) REFERENCES Customers (username)
+);
+
+INSERT INTO RentHistory (customer,
+                         servedCar,
+                         pickUpLocation,
+                         date,
+                         time,
+                         duration,
+                         distanceToPickUpLocation,
+                         distanceFromPickupLocationToDestination)
+VALUES ('18', 'AN043E', '420008', '2018-10-29', '09:04', 42, 2.4, 19.2);
+INSERT INTO RentHistory (customer,
+                         servedCar,
+                         pickUpLocation,
+                         date,
+                         time,
+                         duration,
+                         distanceToPickUpLocation,
+                         distanceFromPickupLocationToDestination)
+VALUES ('18', 'AN843G', '420049', '2018-09-20', '12:40', 20, 3.6, 8.0);
+INSERT INTO RentHistory (customer,
+                         servedCar,
+                         pickUpLocation,
+                         date,
+                         time,
+                         duration,
+                         distanceToPickUpLocation,
+                         distanceFromPickupLocationToDestination)
+VALUES ('245', 'BE259L', '420008', '2018-01-29', '17:43', 35, 4.1, 14.3);
+INSERT INTO RentHistory (customer,
+                         servedCar,
+                         pickUpLocation,
+                         date,
+                         time,
+                         duration,
+                         distanceToPickUpLocation,
+                         distanceFromPickupLocationToDestination)
+VALUES ('12', 'AN843G', '420049', '2018-11-24', '10:42', 10, 1.1, 4.5);
+INSERT INTO RentHistory (customer,
+                         servedCar,
+                         pickUpLocation,
+                         date,
+                         time,
+                         duration,
+                         distanceToPickUpLocation,
+                         distanceFromPickupLocationToDestination)
+VALUES ('12', 'AN043E', '420073', '2018-11-24', '18:39', 10, 3.5, 4.6);
+INSERT INTO RentHistory (customer,
+                         servedCar,
+                         pickUpLocation,
+                         date,
+                         time,
+                         duration,
+                         distanceToPickUpLocation,
+                         distanceFromPickupLocationToDestination)
+VALUES ('239', 'TG392O', '420076', '2018-11-24', '06:13', 32, 1.9, 22.4);
+INSERT INTO RentHistory (customer,
+                         servedCar,
+                         pickUpLocation,
+                         date,
+                         time,
+                         duration,
+                         distanceToPickUpLocation,
+                         distanceFromPickupLocationToDestination)
+VALUES ('85', 'PE234V', '420202', '2018-11-24', '13:35', 26, 1.6, 12.5);
+INSERT INTO RentHistory (customer,
+                         servedCar,
+                         pickUpLocation,
+                         date,
+                         time,
+                         duration,
+                         distanceToPickUpLocation,
+                         distanceFromPickupLocationToDestination)
+VALUES ('146', 'SA843N', '420074', '2018-11-23', '11:43', 18, 2.3, 6.2);
+INSERT INTO RentHistory (customer,
+                         servedCar,
+                         pickUpLocation,
+                         date,
+                         time,
+                         duration,
+                         distanceToPickUpLocation,
+                         distanceFromPickupLocationToDestination)
+VALUES ('146', 'DI151K', '420074', '2018-11-24', '19:23', 23, 1.7, 13.2);
+INSERT INTO RentHistory (customer,
+                         servedCar,
+                         pickUpLocation,
+                         date,
+                         time,
+                         duration,
+                         distanceToPickUpLocation,
+                         distanceFromPickupLocationToDestination)
+VALUES ('8547', 'PI431D', '420039', '2018-11-24', '16:44', 36, 4.2, 25.3);
+INSERT INTO RentHistory (customer,
+                         servedCar,
+                         pickUpLocation,
+                         date,
+                         time,
+                         duration,
+                         distanceToPickUpLocation,
+                         distanceFromPickupLocationToDestination)
+VALUES ('8547', 'FE246K', '420039', '2018-11-25', '12:08', 12, 1.2, 14.6);
+
+CREATE TABLE IF NOT EXISTS PaymentHistory (
+  paymentid SERIAL PRIMARY KEY,
+  customer  VARCHAR(20) NOT NULL,
+  rentid    INTEGER     NOT NULL,
+  date      DATE        NOT NULL,
+  time      TIME        NOT NULL,
+  cost      REAL        NOT NULL,
+  FOREIGN KEY (customer) REFERENCES Customers (username),
+  FOREIGN KEY (rentid) REFERENCES RentHistory (rentid)
+);
+
+INSERT INTO PaymentHistory (customer, rentid, date, time, cost)
+VALUES ('18', 1, '2018-10-29', '09:59', 320);
+INSERT INTO PaymentHistory (customer, rentid, date, time, cost)
+VALUES ('18', 2, '2018-09-20', '13:20', 240);
+INSERT INTO PaymentHistory (customer, rentid, date, time, cost)
+VALUES ('245', 3, '2018-01-29', '17:43', 302);
+INSERT INTO PaymentHistory (customer, rentid, date, time, cost)
+VALUES ('12', 4, '2018-11-24', '10:56', 120);
+INSERT INTO PaymentHistory (customer, rentid, date, time, cost)
+VALUES ('12', 5, '2018-11-24', '18:50', 132);
+INSERT INTO PaymentHistory (customer, rentid, date, time, cost)
+VALUES ('239', 6, '2018-11-24', '06:46', 355);
+INSERT INTO PaymentHistory (customer, rentid, date, time, cost)
+VALUES ('85', 7, '2018-11-24', '14:03', 214);
+INSERT INTO PaymentHistory (customer, rentid, date, time, cost)
+VALUES ('146', 8, '2018-11-23', '11:59', 253);
+INSERT INTO PaymentHistory (customer, rentid, date, time, cost)
+VALUES ('146', 9, '2018-11-24', '20:43', 189);
+INSERT INTO PaymentHistory (customer, rentid, date, time, cost)
+VALUES ('8547', 10, '2018-11-24', '17:32', 295);
+INSERT INTO PaymentHistory (customer, rentid, date, time, cost)
+VALUES ('8547', 11, '2018-11-25', '12:23', 206);
+INSERT INTO PaymentHistory (customer, rentid, date, time, cost)
+VALUES ('8547', 11, '2018-11-25', '12:23', 206);
+
+CREATE TABLE IF NOT EXISTS Addresses (
+  zipCode        VARCHAR(10),
+  street         VARCHAR(40),
+  buildingNumber VARCHAR(10),
+  gpsLattitude   REAL NOT NULL,
+  gpsLongitude   REAL NOT NULL,
+  PRIMARY KEY (zipCode, street, buildingNumber),
+  UNIQUE (gpsLattitude, gpsLongitude),
+  FOREIGN KEY (zipCode) REFERENCES Locations (zipCode)
+  ON DELETE CASCADE
+);
+
+INSERT INTO Addresses (zipCode, street, buildingNumber, gpsLattitude, gpsLongitude)
+VALUES ('420000', 'Kopylova St.', '5/1', 55.852792, 49.083933);
+INSERT INTO Addresses (zipCode, street, buildingNumber, gpsLattitude, gpsLongitude)
+VALUES ('420000', 'Chetayeva St.', '33', 55.82426, 49.122386);
+INSERT INTO Addresses (zipCode, street, buildingNumber, gpsLattitude, gpsLongitude)
+VALUES ('420004', 'Dementeva St.', '1k8', 55.850479, 49.100413);
+INSERT INTO Addresses (zipCode, street, buildingNumber, gpsLattitude, gpsLongitude)
+VALUES ('420008', 'Marselya Salimzhanova St.', '9', 55.779492, 49.123759);
+INSERT INTO Addresses (zipCode, street, buildingNumber, gpsLattitude, gpsLongitude)
+VALUES ('420030', 'Gvardeyskaya St.', '45A/3', 55.778719, 49.177317);
+INSERT INTO Addresses (zipCode, street, buildingNumber, gpsLattitude, gpsLongitude)
+VALUES ('420049', 'Peterburgskaya St.', '78/1', 55.777175, 49.138865);
+INSERT INTO Addresses (zipCode, street, buildingNumber, gpsLattitude, gpsLongitude)
+VALUES ('420039', 'Tulpar St.', '5', 55.784897, 49.188304);
+INSERT INTO Addresses (zipCode, street, buildingNumber, gpsLattitude, gpsLongitude)
+VALUES ('420071', 'Adelya Kutuya St.', '86k1', 55.777175, 49.18281);
+INSERT INTO Addresses (zipCode, street, buildingNumber, gpsLattitude, gpsLongitude)
+VALUES ('420073', 'Orenburgskiy Trakt St.', '15', 55.757861, 49.162211);
+INSERT INTO Addresses (zipCode, street, buildingNumber, gpsLattitude, gpsLongitude)
+VALUES ('420074', 'Kul Gali St.', '4A', 55.753997, 49.222636);
+INSERT INTO Addresses (zipCode, street, buildingNumber, gpsLattitude, gpsLongitude)
+VALUES ('420075', 'Aktayskaya St.', '13', 55.744722, 49.138865);
+INSERT INTO Addresses (zipCode, street, buildingNumber, gpsLattitude, gpsLongitude)
+VALUES ('420076', 'Akademika Glushko St.', '22A', 55.786442, 49.232249);
+INSERT INTO Addresses (zipCode, street, buildingNumber, gpsLattitude, gpsLongitude)
+VALUES ('420202', 'Patris Lumumba St.', '47A', 55.794935, 49.185557);
+
+CREATE TABLE IF NOT EXISTS Plugs (
+  plugid INTEGER PRIMARY KEY,
+  shape  VARCHAR(20) NOT NULL,
+  size   INTEGER     NOT NULL
+);
+
+INSERT INTO Plugs (plugid, shape, size)
+VALUES (1, 'A', '1');
+INSERT INTO Plugs (plugid, shape, size)
+VALUES (2, 'A', '3');
+INSERT INTO Plugs (plugid, shape, size)
+VALUES (3, 'B', '2');
+INSERT INTO Plugs (plugid, shape, size)
+VALUES (4, 'B', '3');
+INSERT INTO Plugs (plugid, shape, size)
+VALUES (5, 'B', '4');
+INSERT INTO Plugs (plugid, shape, size)
+VALUES (6, 'C', '2');
+INSERT INTO Plugs (plugid, shape, size)
+VALUES (7, 'D', '3');
+
+CREATE TABLE IF NOT EXISTS ChargingStations (
+  uid              INTEGER PRIMARY KEY,
+  availableSockets INTEGER NOT NULL,
+  price            REAL    NOT NULL,
+  chargingTime     REAL    NOT NULL,
+  gpsLattitude     REAL    NOT NULL,
+  gpsLongitude     REAL    NOT NULL,
+  UNIQUE (gpsLattitude, gpsLongitude)
+);
+
+INSERT INTO ChargingStations (uid, availableSockets, price, chargingTime, gpsLattitude, gpsLongitude)
+VALUES (1, 3, 32, 21, 55.84444, 49.121258);
+INSERT INTO ChargingStations (uid, availableSockets, price, chargingTime, gpsLattitude, gpsLongitude)
+VALUES (2, 2, 20, 39, 55.848487, 49.099285);
+INSERT INTO ChargingStations (uid, availableSockets, price, chargingTime, gpsLattitude, gpsLongitude)
+VALUES (3, 1, 23, 32, 55.850029, 49.082806);
+INSERT INTO ChargingStations (uid, availableSockets, price, chargingTime, gpsLattitude, gpsLongitude)
+VALUES (4, 2, 41, 13, 55.822073, 49.021351);
+
+CREATE TABLE IF NOT EXISTS CSToPlugs (
+  uid    INTEGER,
+  plugid INTEGER,
+  PRIMARY KEY (plugid, uid),
+  FOREIGN KEY (plugid) REFERENCES Plugs (plugid),
+  FOREIGN KEY (uid) REFERENCES ChargingStations (uid)
+);
+
+INSERT INTO CSToPlugs (uid, plugid)
+VALUES (1, 1);
+INSERT INTO CSToPlugs (uid, plugid)
+VALUES (1, 4);
+INSERT INTO CSToPlugs (uid, plugid)
+VALUES (1, 6);
+INSERT INTO CSToPlugs (uid, plugid)
+VALUES (2, 2);
+INSERT INTO CSToPlugs (uid, plugid)
+VALUES (2, 4);
+INSERT INTO CSToPlugs (uid, plugid)
+VALUES (3, 6);
+INSERT INTO CSToPlugs (uid, plugid)
+VALUES (2, 3);
+INSERT INTO CSToPlugs (uid, plugid)
+VALUES (2, 1);
+
+CREATE TABLE IF NOT EXISTS ChargingHistory (
+  chargingid      SERIAL PRIMARY KEY,
+  chagringStation INTEGER     NOT NULL,
+  car             VARCHAR(20) NOT NULL,
+  plug            INTEGER     NOT NULL,
+  date            DATE        NOT NULL,
+  time            TIME        NOT NULL,
+  amount          REAL        NOT NULL,
+  cost            REAL        NOT NULL,
+  FOREIGN KEY (chagringStation, plug) REFERENCES CSToPlugs (uid, plugid),
+  FOREIGN KEY (car) REFERENCES Cars (cid)
+);
+
+INSERT INTO ChargingHistory (chagringStation, car, plug, date, time, amount, cost)
+VALUES (1, 'AN043E', 4, '2018-10-29', '14:54', 21, 1300);
+INSERT INTO ChargingHistory (chagringStation, car, plug, date, time, amount, cost)
+VALUES (2, 'AN843G', 2, '2018-09-20', '19:32', 53, 2340);
+INSERT INTO ChargingHistory (chagringStation, car, plug, date, time, amount, cost)
+VALUES (3, 'TG392O', 6, '2018-11-24', '16:32', 12, 540);
+INSERT INTO ChargingHistory (chagringStation, car, plug, date, time, amount, cost)
+VALUES (2, 'PE234V', 1, '2018-11-24', '05:35', 43, 2304);
+INSERT INTO ChargingHistory (chagringStation, car, plug, date, time, amount, cost)
+VALUES (2, 'SA843N', 3, '2018-11-23', '19:33', 30, 1043);
+INSERT INTO ChargingHistory (chagringStation, car, plug, date, time, amount, cost)
+VALUES (2, 'DI151K', 2, '2018-11-24', '13:26', 36, 1204);
+
+CREATE TABLE IF NOT EXISTS ParkingStations (
+  pid          INTEGER,
+  gpsLattitude REAL,
+  gpsLongitude REAL,
+  PRIMARY KEY (pid),
+  UNIQUE (gpsLattitude, gpsLongitude)
+);
+
+INSERT INTO ParkingStations (pid, gpsLattitude, gpsLongitude)
+VALUES (1, 55.829402, 48.989422);
+INSERT INTO ParkingStations (pid, gpsLattitude, gpsLongitude)
+VALUES (2, 55.823616, 49.042637);
+INSERT INTO ParkingStations (pid, gpsLattitude, gpsLongitude)
+VALUES (3, 55.821881, 49.085896);
+
+CREATE TABLE IF NOT EXISTS ParkingPlaces (
+  pid          INTEGER,
+  placeid      INTEGER,
+  available    BOOLEAN,
+  gpsLattitude REAL,
+  gpsLongitude REAL,
+  UNIQUE (gpsLattitude, gpsLongitude),
+  PRIMARY KEY (pid, placeid),
+  FOREIGN KEY (pid) REFERENCES ParkingStations (pid)
+  ON DELETE CASCADE
+);
+
+INSERT INTO ParkingPlaces (pid, placeid, available, gpsLattitude, gpsLongitude)
+VALUES (1, 1, TRUE, 55.829404, 48.989421);
+INSERT INTO ParkingPlaces (pid, placeid, available, gpsLattitude, gpsLongitude)
+VALUES (1, 2, TRUE, 55.829409, 48.989422);
+INSERT INTO ParkingPlaces (pid, placeid, available, gpsLattitude, gpsLongitude)
+VALUES (1, 3, TRUE, 55.829400, 48.989425);
+INSERT INTO ParkingPlaces (pid, placeid, available, gpsLattitude, gpsLongitude)
+VALUES (1, 4, TRUE, 55.829403, 48.989426);
+INSERT INTO ParkingPlaces (pid, placeid, available, gpsLattitude, gpsLongitude)
+VALUES (2, 1, TRUE, 55.823612, 49.042635);
+INSERT INTO ParkingPlaces (pid, placeid, available, gpsLattitude, gpsLongitude)
+VALUES (2, 2, TRUE, 55.823615, 49.042637);
+INSERT INTO ParkingPlaces (pid, placeid, available, gpsLattitude, gpsLongitude)
+VALUES (2, 3, TRUE, 55.823618, 49.042639);
+INSERT INTO ParkingPlaces (pid, placeid, available, gpsLattitude, gpsLongitude)
+VALUES (3, 1, TRUE, 55.821881, 49.085896);
+INSERT INTO ParkingPlaces (pid, placeid, available, gpsLattitude, gpsLongitude)
+VALUES (3, 2, TRUE, 55.821885, 49.085893);
+INSERT INTO ParkingPlaces (pid, placeid, available, gpsLattitude, gpsLongitude)
+VALUES (3, 3, TRUE, 55.821875, 49.085897);
+INSERT INTO ParkingPlaces (pid, placeid, available, gpsLattitude, gpsLongitude)
+VALUES (3, 4, TRUE, 55.821889, 49.085890);
+INSERT INTO ParkingPlaces (pid, placeid, available, gpsLattitude, gpsLongitude)
+VALUES (3, 5, TRUE, 55.821879, 49.085899);
+
+CREATE TABLE IF NOT EXISTS ParkingHistory (
+  parkingid      SERIAL PRIMARY KEY,
+  car            VARCHAR(20) NOT NULL,
+  parkingStation INTEGER     NOT NULL,
+  parkingPlace   INTEGER     NOT NULL,
+  date           DATE        NOT NULL,
+  time           TIME        NOT NULL,
+  duration       INTEGER        NOT NULL,
+  FOREIGN KEY (car) REFERENCES Cars (cid),
+  FOREIGN KEY (parkingStation, parkingPlace) REFERENCES ParkingPlaces (pid, placeid)
+);
+
+INSERT INTO ParkingHistory (car, parkingStation, parkingPlace, date, time, duration)
+VALUES ('AN843G', 1, 4, '2018-11-12', '12:34', 12);
+INSERT INTO ParkingHistory (car, parkingStation, parkingPlace, date, time, duration)
+VALUES ('BE259L', 1, 2, '2018-11-23', '19:43', 39);
+INSERT INTO ParkingHistory (car, parkingStation, parkingPlace, date, time, duration)
+VALUES ('AN043E', 2, 1, '2018-11-02', '16:43', 21);
+INSERT INTO ParkingHistory (car, parkingStation, parkingPlace, date, time, duration)
+VALUES ('TG392O', 2, 2, '2018-11-18', '12:54', 32);
+INSERT INTO ParkingHistory (car, parkingStation, parkingPlace, date, time, duration)
+VALUES ('PE234V', 3, 5, '2018-11-21', '06:34', 43);
+INSERT INTO ParkingHistory (car, parkingStation, parkingPlace, date, time, duration)
+VALUES ('SA843N', 3, 4, '2018-11-20', '16:54', 15);
+INSERT INTO ParkingHistory (car, parkingStation, parkingPlace, date, time, duration)
+VALUES ('DI151K', 3, 1, '2018-11-24', '19:43', 41);
+
+CREATE TABLE IF NOT EXISTS Workshops (
+  wid            INTEGER PRIMARY KEY,
+  openHour       TIME        NOT NULL,
+  closeHour      TIME        NOT NULL,
+  zipCode        VARCHAR(10) NOT NULL,
+  street         VARCHAR(40) NOT NULL,
+  buildingNumber VARCHAR(10) NOT NULL,
+  cardNumber     VARCHAR(30) NOT NULL,
+  FOREIGN KEY (zipCode, street, buildingNumber) REFERENCES Addresses (zipCode, street, buildingNumber)
+);
+
+INSERT INTO Workshops (wid, openHour, closeHour, zipCode, street, buildingNumber, cardNumber)
+VALUES (1, '9:00', '21:30', '420000', 'Kopylova St.', '5/1', '8904-1249-4392-9385');
+INSERT INTO Workshops (wid, openHour, closeHour, zipCode, street, buildingNumber, cardNumber)
+VALUES (2, '8:00', '22:00', '420030', 'Gvardeyskaya St.', '45A/3', '2958-3256-8375-2957');
+INSERT INTO Workshops (wid, openHour, closeHour, zipCode, street, buildingNumber, cardNumber)
+VALUES (3, '10:00', '19:30', '420049', 'Peterburgskaya St.', '78/1', '8285-1958-3528-0258');
+INSERT INTO Workshops (wid, openHour, closeHour, zipCode, street, buildingNumber, cardNumber)
+VALUES (4, '11:30', '21:00', '420073', 'Orenburgskiy Trakt St.', '15', '7238-2857-2957-1057');
+
+CREATE TABLE IF NOT EXISTS WorkshopsHaveParts (
+  workshopid INTEGER,
+  partid     INTEGER,
+  PRIMARY KEY (workshopid, partid),
+  FOREIGN KEY (workshopid) REFERENCES Workshops (wid),
+  FOREIGN KEY (partid) REFERENCES CarParts (partid)
+);
+
+INSERT INTO WorkshopsHaveParts (workshopid, partid)
+VALUES (1, 1);
+INSERT INTO WorkshopsHaveParts (workshopid, partid)
+VALUES (2, 2);
+INSERT INTO WorkshopsHaveParts (workshopid, partid)
+VALUES (3, 3);
+INSERT INTO WorkshopsHaveParts (workshopid, partid)
+VALUES (4, 4);
+INSERT INTO WorkshopsHaveParts (workshopid, partid)
+VALUES (3, 5);
+INSERT INTO WorkshopsHaveParts (workshopid, partid)
+VALUES (3, 6);
+
+CREATE TABLE IF NOT EXISTS Providers (
+  companyid      INTEGER PRIMARY KEY,
+  name           VARCHAR(50) NOT NULL,
+  zipCode        VARCHAR(10) NOT NULL,
+  street         VARCHAR(40) NOT NULL,
+  buildingNumber VARCHAR(10) NOT NULL,
+  phoneNumber    VARCHAR(15) NOT NULL,
+  cardNumber     VARCHAR(30) NOT NULL,
+  FOREIGN KEY (zipCode, street, buildingNumber) REFERENCES Addresses (zipCode, street, buildingNumber)
+);
+
+INSERT INTO Providers (companyid, name, zipCode, street, buildingNumber, phoneNumber, cardNumber)
+VALUES (1, 'Sector Car', '420039', 'Tulpar St.', '5', '+73295238528', '2581-3591-2957-1925');
+INSERT INTO Providers (companyid, name, zipCode, street, buildingNumber, phoneNumber, cardNumber)
+VALUES (2, 'Car Great', '420074', 'Kul Gali St.', '4A', '+72359285739', '4928-5927-3958-2358');
+INSERT INTO Providers (companyid, name, zipCode, street, buildingNumber, phoneNumber, cardNumber)
+VALUES (3, 'Silver Fox', '420202', 'Patris Lumumba St.', '47A', '+73856295835', '3958-2951-3957-2495');
+
+CREATE TABLE IF NOT EXISTS Provides (
+  workshop INTEGER,
+  provider INTEGER,
+  carPart  INTEGER,
+  PRIMARY KEY (workshop, provider, carPart),
+  FOREIGN KEY (workshop) REFERENCES Workshops (wid),
+  FOREIGN KEY (provider) REFERENCES Providers (companyid),
+  FOREIGN KEY (carPart) REFERENCES CarParts (partid)
+);
+
+INSERT INTO Provides (workshop, provider, carPart)
+VALUES (1, 1, 1);
+INSERT INTO Provides (workshop, provider, carPart)
+VALUES (2, 1, 2);
+INSERT INTO Provides (workshop, provider, carPart)
+VALUES (3, 2, 3);
+INSERT INTO Provides (workshop, provider, carPart)
+VALUES (4, 2, 4);
+INSERT INTO Provides (workshop, provider, carPart)
+VALUES (3, 3, 5);
+INSERT INTO Provides (workshop, provider, carPart)
+VALUES (2, 3, 6);
+
+CREATE TABLE IF NOT EXISTS ProvidingHistory (
+  providingid SERIAL PRIMARY KEY,
+  carPart     INTEGER NOT NULL,
+  provider    INTEGER NOT NULL,
+  workshop    INTEGER NOT NULL,
+  date        DATE    NOT NULL,
+  amount      INTEGER NOT NULL,
+  cost        REAL    NOT NULL,
+  FOREIGN KEY (workshop) REFERENCES Workshops (wid),
+  FOREIGN KEY (provider) REFERENCES Providers (companyid),
+  FOREIGN KEY (carPart) REFERENCES CarParts (partid)
+);
+
+INSERT INTO ProvidingHistory (carPart, provider, workshop, date, amount, cost)
+VALUES (1, 1, 1, '2018-11-15', 5, 50000);
+INSERT INTO ProvidingHistory (carPart, provider, workshop, date, amount, cost)
+VALUES (1, 1, 1, '2018-10-26', 10, 250000);
+INSERT INTO ProvidingHistory (carPart, provider, workshop, date, amount, cost)
+VALUES (2, 1, 2, '2018-11-27', 15, 350000);
+INSERT INTO ProvidingHistory (carPart, provider, workshop, date, amount, cost)
+VALUES (2, 1, 2, '2018-10-18', 20, 500000);
+INSERT INTO ProvidingHistory (carPart, provider, workshop, date, amount, cost)
+VALUES (3, 2, 3, '2018-11-28', 5, 150000);
+INSERT INTO ProvidingHistory (carPart, provider, workshop, date, amount, cost)
+VALUES (4, 2, 4, '2018-10-29', 10, 250000);
+INSERT INTO ProvidingHistory (carPart, provider, workshop, date, amount, cost)
+VALUES (5, 3, 3, '2018-11-18', 15, 350000);
+
+CREATE TABLE IF NOT EXISTS RepairingHistory (
+  repairingid SERIAL PRIMARY KEY,
+  car         VARCHAR(20) NOT NULL,
+  workshop    INTEGER     NOT NULL,
+  cost        REAL        NOT NULL,
+  date        DATE        NOT NULL,
+  FOREIGN KEY (workshop) REFERENCES Workshops (wid),
+  FOREIGN KEY (car) REFERENCES Cars (cid)
+);
+
+INSERT INTO RepairingHistory (car, workshop, cost, date)
+VALUES ('BE259L', 1, 100000, '2018-11-15');
+INSERT INTO RepairingHistory (car, workshop, cost, date)
+VALUES ('BE259L', 2, 200000,'2018-11-16');
+INSERT INTO RepairingHistory (car, workshop, cost, date)
+VALUES ('AN043E', 3, 300000, '2018-11-17');
+INSERT INTO RepairingHistory (car, workshop, cost, date)
+VALUES ('TG392O', 4, 100000, '2018-11-18');
+INSERT INTO RepairingHistory (car, workshop, cost, date)
+VALUES ('TG392O', 1, 200000, '2018-11-19');
+INSERT INTO RepairingHistory (car, workshop, cost, date)
+VALUES ('PE234V', 2, 300000, '2018-11-20');
+INSERT INTO RepairingHistory (car, workshop, cost, date)
+VALUES ('DI151K', 3, 100000, '2018-11-21');
+INSERT INTO RepairingHistory (car, workshop, cost, date)
+VALUES ('PI431D', 4, 200000, '2018-11-22');

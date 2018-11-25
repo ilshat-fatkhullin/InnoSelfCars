@@ -11,8 +11,8 @@ public class QueryResult extends Result{
 
     private ArrayList<ArrayList<String>> data;
 
-    public QueryResult(boolean status, ArrayList<ArrayList<String>> data) {
-        this.isSuccessful = status;
+    public QueryResult(boolean isSuccessful, ArrayList<ArrayList<String>> data) {
+        super(isSuccessful);
         this.data = data;
     }
 }

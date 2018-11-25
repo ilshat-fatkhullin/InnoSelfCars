@@ -2,14 +2,34 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/controllers/SequentialRequestRunner.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/sql_requests/3.3.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/sql_requests/3.4.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/sql_requests/3.5.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/sql_requests/3.6.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/sql_requests/3.7.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/sql_requests/3.8.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/sql_requests/discard_changes.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/InnoSelfCars/controllers/MainFormController$1.class" afterPath="$PROJECT_DIR$/out/production/InnoSelfCars/controllers/MainFormController$1.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/InnoSelfCars/controllers/MainFormController.class" afterPath="$PROJECT_DIR$/out/production/InnoSelfCars/controllers/MainFormController.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/InnoSelfCars/controllers/RequestController.class" afterPath="$PROJECT_DIR$/out/production/InnoSelfCars/controllers/RequestController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/InnoSelfCars/controllers/RequestControllerListener.class" afterPath="$PROJECT_DIR$/out/production/InnoSelfCars/controllers/RequestControllerListener.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/InnoSelfCars/data/CommandResult.class" afterPath="$PROJECT_DIR$/out/production/InnoSelfCars/data/CommandResult.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/InnoSelfCars/data/ConnectionResult.class" afterPath="$PROJECT_DIR$/out/production/InnoSelfCars/data/ConnectionResult.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/InnoSelfCars/data/QueryResult.class" afterPath="$PROJECT_DIR$/out/production/InnoSelfCars/data/QueryResult.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/InnoSelfCars/data/Result.class" afterPath="$PROJECT_DIR$/out/production/InnoSelfCars/data/Result.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/InnoSelfCars/data/StringConstants.class" afterPath="$PROJECT_DIR$/out/production/InnoSelfCars/data/StringConstants.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/InnoSelfCars/data/UpdateResult.class" afterPath="$PROJECT_DIR$/out/production/InnoSelfCars/data/UpdateResult.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/controllers/MainFormController.java" afterPath="$PROJECT_DIR$/src/controllers/MainFormController.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/controllers/RequestController.java" afterPath="$PROJECT_DIR$/src/controllers/RequestController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/data/CommandResult.java" afterPath="$PROJECT_DIR$/src/data/CommandResult.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/data/ConnectionResult.java" afterPath="$PROJECT_DIR$/src/data/ConnectionResult.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/data/QueryResult.java" afterPath="$PROJECT_DIR$/src/data/QueryResult.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/data/Result.java" afterPath="$PROJECT_DIR$/src/data/Result.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/data/StringConstants.java" afterPath="$PROJECT_DIR$/src/data/StringConstants.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/data/UpdateResult.java" afterPath="$PROJECT_DIR$/src/data/UpdateResult.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/layouts/main_form.fxml" afterPath="$PROJECT_DIR$/src/layouts/main_form.fxml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/views/MainFormView.java" afterPath="$PROJECT_DIR$/src/views/MainFormView.java" />
     </list>
     <ignored path="JavaFxApplication.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -67,76 +87,49 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Main.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="156">
-              <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="StringConstants.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/data/StringConstants.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="2" column="7" lean-forward="false" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="7" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MainFormController.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MainFormController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/controllers/MainFormController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="173">
-              <caret line="243" column="46" lean-forward="true" selection-start-line="243" selection-start-column="46" selection-end-line="243" selection-end-column="46" />
+            <state relative-caret-position="34">
+              <caret line="209" column="4" lean-forward="true" selection-start-line="209" selection-start-column="4" selection-end-line="209" selection-end-column="4" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#2524#2525#0" expanded="true" />
-                <element signature="e#2549#2550#0" expanded="true" />
+                <element signature="method#MainFormController#0;class#MainFormController#0" expanded="false" />
+                <element signature="e#4305#4306#0" expanded="true" />
+                <element signature="e#4330#4331#0" expanded="true" />
+                <element signature="method#handleShowButtonAction#0;class#MainFormController#0" expanded="false" />
+                <element signature="method#handleClearButtonAction#0;class#MainFormController#0" expanded="false" />
+                <element signature="method#onCommandTextFieldTextChanged#0;class#MainFormController#0" expanded="false" />
+                <element signature="method#handleUpdateResult#0;class#MainFormController#0" expanded="false" />
+                <element signature="method#handleConnectionResult#0;class#MainFormController#0" expanded="false" />
+                <element signature="method#appendIntoTerminal#0;class#MainFormController#0" expanded="false" />
+                <element signature="method#connect#0;class#MainFormController#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="main_form.fxml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/layouts/main_form.fxml">
-          <provider editor-type-id="JavaFX-Scene-Builder">
-            <state />
-          </provider>
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="93">
-              <caret line="12" column="28" lean-forward="true" selection-start-line="12" selection-start-column="28" selection-end-line="12" selection-end-column="28" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Result.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/data/Result.java">
+      <file leaf-file-name="3.3.txt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/sql_requests/3.3.txt">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="34">
-              <caret line="2" column="22" lean-forward="false" selection-start-line="2" selection-start-column="22" selection-end-line="2" selection-end-column="22" />
+              <caret line="2" column="22" lean-forward="true" selection-start-line="2" selection-start-column="22" selection-end-line="2" selection-end-column="22" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RequestController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/controllers/RequestController.java">
+      <file leaf-file-name="SequentialRequestRunner.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/controllers/SequentialRequestRunner.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="51" column="0" lean-forward="true" selection-start-line="51" selection-start-column="0" selection-end-line="51" selection-end-column="0" />
+            <state relative-caret-position="799">
+              <caret line="47" column="5" lean-forward="true" selection-start-line="47" selection-start-column="5" selection-end-line="47" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1787#1788#0" expanded="true" />
-                <element signature="e#1855#1856#0" expanded="true" />
-                <element signature="e#2019#2020#0" expanded="true" />
-                <element signature="e#2090#2091#0" expanded="true" />
+                <element signature="e#1258#1259#0" expanded="true" />
+                <element signature="e#1319#1320#0" expanded="true" />
+                <element signature="e#1512#1513#0" expanded="true" />
+                <element signature="e#1602#1603#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -145,43 +138,18 @@
       <file leaf-file-name="ConnectionResult.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/data/ConnectionResult.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="2" column="33" lean-forward="false" selection-start-line="2" selection-start-column="33" selection-end-line="2" selection-end-column="33" />
-              <folding>
-                <element signature="e#142#143#0" expanded="true" />
-                <element signature="e#178#179#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MainFormView.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/views/MainFormView.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="3" column="9" lean-forward="true" selection-start-line="3" selection-start-column="9" selection-end-line="3" selection-end-column="9" />
+            <state relative-caret-position="153">
+              <caret line="11" column="0" lean-forward="true" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SqlController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/controllers/SqlController.java">
+      <file leaf-file-name="RequestController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/controllers/RequestController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="194">
-              <caret line="91" column="0" lean-forward="false" selection-start-line="91" selection-start-column="0" selection-end-line="91" selection-end-column="0" />
-              <folding>
-                <marker date="1543087082059" expanded="true" signature="3423:3430" ph="{...}" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="QueryResult.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/data/QueryResult.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+            <state relative-caret-position="289">
+              <caret line="37" column="24" lean-forward="false" selection-start-line="37" selection-start-column="24" selection-end-line="37" selection-end-column="24" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -225,14 +193,28 @@
         <option value="$PROJECT_DIR$/src/Main.java" />
         <option value="$PROJECT_DIR$/.idea/misc.xml" />
         <option value="$PROJECT_DIR$/src/controllers/Request.java" />
-        <option value="$PROJECT_DIR$/src/data/StringConstants.java" />
-        <option value="$PROJECT_DIR$/src/data/ConnectionResult.java" />
-        <option value="$PROJECT_DIR$/src/data/QueryResult.java" />
         <option value="$PROJECT_DIR$/src/controllers/SqlController.java" />
-        <option value="$PROJECT_DIR$/src/controllers/RequestController.java" />
         <option value="$PROJECT_DIR$/src/layouts/main_form.fxml" />
         <option value="$PROJECT_DIR$/src/views/MainFormView.java" />
+        <option value="$PROJECT_DIR$/src/data/Result.java" />
+        <option value="$PROJECT_DIR$/src/data/QueryResult.java" />
+        <option value="$PROJECT_DIR$/src/data/ConnectionResult.java" />
+        <option value="$PROJECT_DIR$/src/data/CommandResult.java" />
+        <option value="$PROJECT_DIR$/src/data/UpdateResult.java" />
+        <option value="$PROJECT_DIR$/src/controllers/DiscardingChangesController.java" />
+        <option value="$PROJECT_DIR$/src/controllers/DiscardChangesController.java" />
+        <option value="$PROJECT_DIR$/src/sql_requests/discard_changes.txt" />
+        <option value="$PROJECT_DIR$/src/controllers/SequentiallyRequestsController.java" />
+        <option value="$PROJECT_DIR$/src/sql_requests/3.4.txt" />
+        <option value="$PROJECT_DIR$/src/sql_requests/3.6.txt" />
+        <option value="$PROJECT_DIR$/src/sql_requests/3.7.txt" />
+        <option value="$PROJECT_DIR$/src/sql_requests/3.8.txt" />
+        <option value="$PROJECT_DIR$/src/data/StringConstants.java" />
+        <option value="$PROJECT_DIR$/src/sql_requests/3.3.txt" />
+        <option value="$PROJECT_DIR$/src/controllers/RequestController.java" />
+        <option value="$PROJECT_DIR$/src/sql_requests/3.5.txt" />
         <option value="$PROJECT_DIR$/src/controllers/MainFormController.java" />
+        <option value="$PROJECT_DIR$/src/controllers/SequentialRequestRunner.java" />
       </list>
     </option>
   </component>
@@ -263,8 +245,6 @@
     </navigator>
     <panes>
       <pane id="PackagesPane" />
-      <pane id="Scope" />
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -292,6 +272,13 @@
               <item name="InnoSelfCars" type="b2602c69:ProjectViewProjectNode" />
               <item name="InnoSelfCars" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="controllers" type="462c0819:PsiDirectoryNode" />
+              <item name="RequestController.java" type="529ef68f:ClassesTreeStructureProvider$PsiClassOwnerTreeNode" />
+            </path>
+            <path>
+              <item name="InnoSelfCars" type="b2602c69:ProjectViewProjectNode" />
+              <item name="InnoSelfCars" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="data" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -304,12 +291,14 @@
               <item name="InnoSelfCars" type="b2602c69:ProjectViewProjectNode" />
               <item name="InnoSelfCars" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="sql_requests" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="AndroidView" />
     </panes>
   </component>
@@ -331,6 +320,9 @@
     <property name="last_opened_file_path" value="C:/Program Files/Java/jdk1.8.0_144/jre/lib/ext/postgresql-42.2.5.jar!/" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Repositories\InnoSelfCars\src\sql_requests" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Repositories\InnoSelfCars\src\views" />
       <recent name="C:\Repositories\InnoSelfCars\src\controllers" />
@@ -558,7 +550,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="23" />
+      <option name="time" value="27" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -567,102 +559,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/views/MainFormView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="22" column="0" lean-forward="false" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/data/QueryResult.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="12" column="0" lean-forward="true" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/controllers/MainFormController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2618">
-          <caret line="154" column="9" lean-forward="true" selection-start-line="154" selection-start-column="9" selection-end-line="154" selection-end-column="9" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2524#2525#0" expanded="true" />
-            <element signature="e#2549#2550#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="12" column="32" lean-forward="false" selection-start-line="12" selection-start-column="32" selection-end-line="12" selection-end-column="32" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/data/StringConstants.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="52" lean-forward="false" selection-start-line="6" selection-start-column="52" selection-end-line="6" selection-end-column="52" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/controllers/SqlController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1105">
-          <caret line="65" column="5" lean-forward="false" selection-start-line="65" selection-start-column="5" selection-end-line="65" selection-end-column="5" />
-          <folding>
-            <marker date="1543087082059" expanded="true" signature="3423:3430" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/views/MainFormView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="28" column="0" lean-forward="false" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.idea/misc.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="21" lean-forward="false" selection-start-line="1" selection-start-column="21" selection-end-line="1" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/controllers/MainFormController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="629">
-          <caret line="45" column="5" lean-forward="true" selection-start-line="45" selection-start-column="5" selection-end-line="45" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2524#2525#0" expanded="true" />
-            <element signature="e#2549#2550#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/data/StringConstants.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
@@ -672,14 +568,14 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/layouts/main_form.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
           <caret line="5" column="33" lean-forward="true" selection-start-line="5" selection-start-column="33" selection-end-line="5" selection-end-column="33" />
           <folding />
         </state>
+      </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/controllers/MainFormController.java">
@@ -688,8 +584,16 @@
           <caret line="0" column="20" lean-forward="false" selection-start-line="0" selection-start-column="20" selection-end-line="0" selection-end-column="20" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2524#2525#0" expanded="true" />
-            <element signature="e#2549#2550#0" expanded="true" />
+            <element signature="method#MainFormController#0;class#MainFormController#0" expanded="false" />
+            <element signature="e#4305#4306#0" expanded="true" />
+            <element signature="e#4330#4331#0" expanded="true" />
+            <element signature="method#handleShowButtonAction#0;class#MainFormController#0" expanded="false" />
+            <element signature="method#handleClearButtonAction#0;class#MainFormController#0" expanded="false" />
+            <element signature="method#onCommandTextFieldTextChanged#0;class#MainFormController#0" expanded="false" />
+            <element signature="method#handleUpdateResult#0;class#MainFormController#0" expanded="false" />
+            <element signature="method#handleConnectionResult#0;class#MainFormController#0" expanded="false" />
+            <element signature="method#appendIntoTerminal#0;class#MainFormController#0" expanded="false" />
+            <element signature="method#connect#0;class#MainFormController#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -718,21 +622,29 @@
           <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2524#2525#0" expanded="true" />
-            <element signature="e#2549#2550#0" expanded="true" />
+            <element signature="method#MainFormController#0;class#MainFormController#0" expanded="false" />
+            <element signature="e#4305#4306#0" expanded="true" />
+            <element signature="e#4330#4331#0" expanded="true" />
+            <element signature="method#handleShowButtonAction#0;class#MainFormController#0" expanded="false" />
+            <element signature="method#handleClearButtonAction#0;class#MainFormController#0" expanded="false" />
+            <element signature="method#onCommandTextFieldTextChanged#0;class#MainFormController#0" expanded="false" />
+            <element signature="method#handleUpdateResult#0;class#MainFormController#0" expanded="false" />
+            <element signature="method#handleConnectionResult#0;class#MainFormController#0" expanded="false" />
+            <element signature="method#appendIntoTerminal#0;class#MainFormController#0" expanded="false" />
+            <element signature="method#connect#0;class#MainFormController#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/layouts/main_form.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
           <caret line="7" column="11" lean-forward="false" selection-start-line="7" selection-start-column="11" selection-end-line="7" selection-end-column="11" />
           <folding />
         </state>
+      </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Main.java">
@@ -746,14 +658,14 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/layouts/main_form.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
           <caret line="7" column="11" lean-forward="false" selection-start-line="7" selection-start-column="11" selection-end-line="7" selection-end-column="11" />
           <folding />
         </state>
+      </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/controllers/MainFormController.java">
@@ -762,8 +674,16 @@
           <caret line="4" column="0" lean-forward="true" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2524#2525#0" expanded="true" />
-            <element signature="e#2549#2550#0" expanded="true" />
+            <element signature="method#MainFormController#0;class#MainFormController#0" expanded="false" />
+            <element signature="e#4305#4306#0" expanded="true" />
+            <element signature="e#4330#4331#0" expanded="true" />
+            <element signature="method#handleShowButtonAction#0;class#MainFormController#0" expanded="false" />
+            <element signature="method#handleClearButtonAction#0;class#MainFormController#0" expanded="false" />
+            <element signature="method#onCommandTextFieldTextChanged#0;class#MainFormController#0" expanded="false" />
+            <element signature="method#handleUpdateResult#0;class#MainFormController#0" expanded="false" />
+            <element signature="method#handleConnectionResult#0;class#MainFormController#0" expanded="false" />
+            <element signature="method#appendIntoTerminal#0;class#MainFormController#0" expanded="false" />
+            <element signature="method#connect#0;class#MainFormController#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -852,22 +772,6 @@
     <entry file="file://$USER_HOME$/AppData/Local/Temp/Rar$DIa0.448/EventHandlingController.java" />
     <entry file="file://$USER_HOME$/AppData/Local/Temp/Rar$DIa0.977/EventHandlingController.java" />
     <entry file="file://$PROJECT_DIR$/src/controllers/Request.java" />
-    <entry file="file://$PROJECT_DIR$/src/data/CommandResult.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/data/UpdateResult.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_144/src.zip!/java/util/function/Supplier.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="247">
@@ -889,7 +793,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/data/QueryResult.java">
+    <entry file="file://$PROJECT_DIR$/src/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
           <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
@@ -899,94 +803,203 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/data/Result.java">
+    <entry file="file://$PROJECT_DIR$/src/views/MainFormView.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="22" lean-forward="false" selection-start-line="2" selection-start-column="22" selection-end-line="2" selection-end-column="22" />
+        <state relative-caret-position="51">
+          <caret line="3" column="9" lean-forward="false" selection-start-line="3" selection-start-column="9" selection-end-line="3" selection-end-column="9" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/data/ConnectionResult.java">
+    <entry file="file://$PROJECT_DIR$/src/data/QueryResult.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="33" lean-forward="false" selection-start-line="2" selection-start-column="33" selection-end-line="2" selection-end-column="33" />
-          <folding>
-            <element signature="e#142#143#0" expanded="true" />
-            <element signature="e#178#179#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/data/StringConstants.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="7" lean-forward="false" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="156">
-          <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+        <state relative-caret-position="204">
+          <caret line="14" column="28" lean-forward="true" selection-start-line="14" selection-start-column="28" selection-end-line="14" selection-end-column="28" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/data/CommandResult.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="28" lean-forward="true" selection-start-line="5" selection-start-column="28" selection-end-line="5" selection-end-column="28" />
+          <folding>
+            <element signature="e#107#108#0" expanded="true" />
+            <element signature="e#142#143#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/data/UpdateResult.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="11" column="28" lean-forward="true" selection-start-line="11" selection-start-column="28" selection-end-line="11" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/data/Result.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="6" lean-forward="false" selection-start-line="2" selection-start-column="6" selection-end-line="2" selection-end-column="6" />
+          <folding>
+            <element signature="e#186#187#0" expanded="true" />
+            <element signature="e#234#235#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/layouts/main_form.fxml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="12" column="28" lean-forward="false" selection-start-line="12" selection-start-column="28" selection-end-line="12" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_144/javafx-src.zip!/com/sun/javafx/text/PrismTextLayout.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="218">
+          <caret line="759" column="10" lean-forward="false" selection-start-line="759" selection-start-column="10" selection-end-line="759" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_144/javafx-src.zip!/com/sun/javafx/text/GlyphLayout.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="127">
+          <caret line="139" column="0" lean-forward="false" selection-start-line="139" selection-start-column="0" selection-end-line="139" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/controllers/SqlController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="194">
-          <caret line="91" column="0" lean-forward="false" selection-start-line="91" selection-start-column="0" selection-end-line="91" selection-end-column="0" />
+        <state relative-caret-position="-1085">
+          <caret line="23" column="39" lean-forward="true" selection-start-line="23" selection-start-column="39" selection-end-line="23" selection-end-column="39" />
           <folding>
             <marker date="1543087082059" expanded="true" signature="3423:3430" ph="{...}" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/layouts/main_form.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
+    <entry file="file://$PROJECT_DIR$/src/sql_requests/3.8.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="93">
-          <caret line="12" column="28" lean-forward="true" selection-start-line="12" selection-start-column="28" selection-end-line="12" selection-end-column="28" />
+        <state relative-caret-position="119">
+          <caret line="7" column="18" lean-forward="false" selection-start-line="7" selection-start-column="18" selection-end-line="7" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sql_requests/3.7.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" column="54" lean-forward="false" selection-start-line="11" selection-start-column="54" selection-end-line="11" selection-end-column="54" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sql_requests/3.6.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="281">
+          <caret line="52" column="26" lean-forward="false" selection-start-line="52" selection-start-column="26" selection-end-line="52" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sql_requests/discard_changes.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="451">
+          <caret line="631" column="23" lean-forward="false" selection-start-line="631" selection-start-column="23" selection-end-line="631" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/data/StringConstants.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="224">
+          <caret line="18" column="41" lean-forward="true" selection-start-line="18" selection-start-column="41" selection-end-line="18" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/data/ConnectionResult.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="11" column="0" lean-forward="true" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/controllers/RequestController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="51" column="0" lean-forward="true" selection-start-line="51" selection-start-column="0" selection-end-line="51" selection-end-column="0" />
+        <state relative-caret-position="289">
+          <caret line="37" column="24" lean-forward="false" selection-start-line="37" selection-start-column="24" selection-end-line="37" selection-end-column="24" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1787#1788#0" expanded="true" />
-            <element signature="e#1855#1856#0" expanded="true" />
-            <element signature="e#2019#2020#0" expanded="true" />
-            <element signature="e#2090#2091#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/views/MainFormView.java">
+    <entry file="file://$PROJECT_DIR$/src/sql_requests/3.4.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="21" lean-forward="false" selection-start-line="7" selection-start-column="21" selection-end-line="7" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sql_requests/3.5.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
-          <caret line="3" column="9" lean-forward="true" selection-start-line="3" selection-start-column="9" selection-end-line="3" selection-end-column="9" />
+          <caret line="1" column="21" lean-forward="false" selection-start-line="1" selection-start-column="21" selection-end-line="1" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sql_requests/3.3.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="22" lean-forward="true" selection-start-line="2" selection-start-column="22" selection-end-line="2" selection-end-column="22" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/controllers/MainFormController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="173">
-          <caret line="243" column="46" lean-forward="true" selection-start-line="243" selection-start-column="46" selection-end-line="243" selection-end-column="46" />
+        <state relative-caret-position="34">
+          <caret line="209" column="4" lean-forward="true" selection-start-line="209" selection-start-column="4" selection-end-line="209" selection-end-column="4" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2524#2525#0" expanded="true" />
-            <element signature="e#2549#2550#0" expanded="true" />
+            <element signature="method#MainFormController#0;class#MainFormController#0" expanded="false" />
+            <element signature="e#4305#4306#0" expanded="true" />
+            <element signature="e#4330#4331#0" expanded="true" />
+            <element signature="method#handleShowButtonAction#0;class#MainFormController#0" expanded="false" />
+            <element signature="method#handleClearButtonAction#0;class#MainFormController#0" expanded="false" />
+            <element signature="method#onCommandTextFieldTextChanged#0;class#MainFormController#0" expanded="false" />
+            <element signature="method#handleUpdateResult#0;class#MainFormController#0" expanded="false" />
+            <element signature="method#handleConnectionResult#0;class#MainFormController#0" expanded="false" />
+            <element signature="method#appendIntoTerminal#0;class#MainFormController#0" expanded="false" />
+            <element signature="method#connect#0;class#MainFormController#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/controllers/SequentialRequestRunner.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="799">
+          <caret line="47" column="5" lean-forward="true" selection-start-line="47" selection-start-column="5" selection-end-line="47" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1258#1259#0" expanded="true" />
+            <element signature="e#1319#1320#0" expanded="true" />
+            <element signature="e#1512#1513#0" expanded="true" />
+            <element signature="e#1602#1603#0" expanded="true" />
           </folding>
         </state>
       </provider>

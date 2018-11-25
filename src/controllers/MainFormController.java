@@ -1,9 +1,6 @@
 package controllers;
 
-import data.CommandResult;
-import data.ConnectionResult;
-import data.QueryResult;
-import data.UpdateResult;
+import data.*;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
@@ -16,6 +13,8 @@ import javafx.scene.input.KeyCode;
 import javafx.util.Callback;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
+
+import java.util.Hashtable;
 
 public class MainFormController implements RequestControllerListener {
 
@@ -49,22 +48,50 @@ public class MainFormController implements RequestControllerListener {
     @FXML
     private TableView resultTableView;
 
+    private Hashtable<String, String> tableChoiceBoxItemsToTables;
+
     private ObservableList<String> methodChoiceBoxList;
 
     private ObservableList<String> tableChoiceBoxList;
 
     private String terminalText;
 
-    private Boolean isProceeding;
+    private boolean isProceeding;
+
+    private boolean isSequentiallyRequesting;
 
     private RequestController requestController;
+
+    private SequentialRequestRunner sequentialRequestRunner;
 
     public MainFormController() {
         methodChoiceBoxList = FXCollections.observableArrayList();
         methodChoiceBoxList.addAll("3.1", "3.2", "3.3", "3.4", "3.5", "3.6", "3.7", "3.8", "3.9", "3.10");
 
+        tableChoiceBoxItemsToTables = new Hashtable<>();
+        tableChoiceBoxItemsToTables.put("Addresses", "Addresses");
+        tableChoiceBoxItemsToTables.put("Car parts", "CarParts");
+        tableChoiceBoxItemsToTables.put("Cars", "Cars");
+        tableChoiceBoxItemsToTables.put("Charging history", "ChargingHistory");
+        tableChoiceBoxItemsToTables.put("Charging stations", "ChargingStations");
+        tableChoiceBoxItemsToTables.put("Charging station to plugs", "CSToPlugs");
+        tableChoiceBoxItemsToTables.put("Customers", "Customers");
+        tableChoiceBoxItemsToTables.put("Locations", "Locations");
+        tableChoiceBoxItemsToTables.put("Parking history", "ParkingHistory");
+        tableChoiceBoxItemsToTables.put("Parking places", "ParkingPlaces");
+        tableChoiceBoxItemsToTables.put("Parking stations", "ParkingStations");
+        tableChoiceBoxItemsToTables.put("Payment history", "PaymentHistory");
+        tableChoiceBoxItemsToTables.put("Plugs", "Plugs");
+        tableChoiceBoxItemsToTables.put("Providers", "Providers");
+        tableChoiceBoxItemsToTables.put("Provides", "Provides");
+        tableChoiceBoxItemsToTables.put("Providing history", "ProvidingHistory");
+        tableChoiceBoxItemsToTables.put("Rent history", "RentHistory");
+        tableChoiceBoxItemsToTables.put("Repairing history", "RepairingHistory");
+        tableChoiceBoxItemsToTables.put("Workshops", "Workshops");
+        tableChoiceBoxItemsToTables.put("Workshops have parts", "WorkshopsHaveParts");
+
         tableChoiceBoxList = FXCollections.observableArrayList();
-        tableChoiceBoxList.addAll("Customers", "Charging stations", "Workshops", "Providers");
+        tableChoiceBoxList.addAll(tableChoiceBoxItemsToTables.keySet());
     }
 
     @FXML
@@ -76,6 +103,7 @@ public class MainFormController implements RequestControllerListener {
 
         terminalText = "";
         isProceeding = false;
+        isSequentiallyRequesting = false;
 
         commandTextField.textProperty().addListener((obs, oldText, newText) -> {
             onCommandTextFieldTextChanged();
@@ -88,7 +116,11 @@ public class MainFormController implements RequestControllerListener {
     private void handleDiscardChangesButtonAction(ActionEvent event) {
         if (isProceeding)
             return;
-        System.out.println("Clicked 'Recover' button.");
+
+        sequentialRequestRunner = new SequentialRequestRunner(StringConstants.DISCARD_CHANGES_REQUEST_PATH);
+
+        isSequentiallyRequesting = true;
+        makeSequentialRequest();
     }
 
     @FXML
@@ -100,6 +132,12 @@ public class MainFormController implements RequestControllerListener {
     private void handleRunButtonAction(ActionEvent event) {
         if (isProceeding)
             return;
+
+        sequentialRequestRunner = new SequentialRequestRunner(StringConstants.SQL_REQUESTS_FOLDER_PATH +
+                methodChoiceBox.getValue() + ".txt");
+
+        isSequentiallyRequesting = true;
+        makeSequentialRequest();
     }
 
     @FXML
@@ -107,20 +145,13 @@ public class MainFormController implements RequestControllerListener {
         if (isProceeding)
             return;
 
-        switch (tableChoiceBox.getValue()) {
-            case "Customers":
-                makeRequest("select * from customers");
-                break;
-            case "Charging stations":
-                makeRequest("select * from chargingStations");
-                break;
-            case "Workshops":
-                makeRequest("select * from workshops");
-                break;
-            case "Providers":
-                makeRequest("select * from providers");
-                break;
-        }
+        makeRequest("select * from " + tableChoiceBoxItemsToTables.get(tableChoiceBox.getValue()));
+    }
+
+    @FXML
+    private void handleClearButtonAction(ActionEvent event) {
+        terminalTextArea.setText("");
+        terminalText = "";
     }
 
     @FXML
@@ -132,23 +163,15 @@ public class MainFormController implements RequestControllerListener {
             return;
 
         String command = commandTextField.getText();
-
         commandTextField.setText("");
+        appendIntoTerminal(command);
 
-        makeRequest(command);
-    }
-
-    @FXML
-    private void handleClearButtonAction(ActionEvent event) {
-        terminalTextArea.setText("");
-        terminalText = "";
-    }
-
-    private void appendIntoTerminal(String line) {
-        if (terminalText.length() != 0)
-            terminalText += "\n";
-        terminalText += line;
-        terminalTextArea.setText(terminalText);
+        if (isSequentiallyRequesting) {
+            sequentialRequestRunner.setInput(command);
+            makeSequentialRequest();
+        } else {
+            makeRequest(command);
+        }
     }
 
     private void onCommandTextFieldTextChanged() {
@@ -156,9 +179,27 @@ public class MainFormController implements RequestControllerListener {
             commandTextField.setText("");
     }
 
-    public void handleCommandResult(CommandResult result) {
+    public void handleResult(Result result) {
         isProceeding = false;
 
+        if (!isSequentiallyRequesting)
+            return;
+
+        if (!result.isSuccessful()) {
+            appendIntoTerminal("An error occurred during sequential requesting.");
+        } else if (sequentialRequestRunner.isFinished()) {
+            appendIntoTerminal("Sequential requesting finished successfully.");
+        }
+
+        if (!result.isSuccessful() || sequentialRequestRunner.isFinished()) {
+            isSequentiallyRequesting = false;
+            return;
+        }
+
+        makeSequentialRequest();
+    }
+
+    public void handleCommandResult(CommandResult result) {
         if (result.isSuccessful()) {
             appendIntoTerminal("Command is successfully done.");
         } else {
@@ -167,8 +208,6 @@ public class MainFormController implements RequestControllerListener {
     }
 
     public void handleQueryResult(QueryResult result) {
-        isProceeding = false;
-
         if (result.isSuccessful()) {
             appendIntoTerminal("Query is successfully done.");
         } else {
@@ -176,12 +215,37 @@ public class MainFormController implements RequestControllerListener {
             return;
         }
 
+        if (isSequentiallyRequesting) {
+            StringBuilder line = new StringBuilder();
+            line.append('\n');
+
+            int[] columnSizes = new int[result.getData().get(0).size()];
+            for (int i = 0; i < result.getData().size(); i++) {
+                for (int j = 0; j < result.getData().get(i).size(); j++) {
+                    int length = result.getData().get(i).get(j).length();
+                    if (length > columnSizes[j])
+                        columnSizes[j] = length;
+                }
+            }
+
+            for (int i = 0; i < result.getData().size(); i++) {
+                for (int j = 0; j < result.getData().get(i).size(); j++) {
+                    StringBuilder part = new StringBuilder();
+                    part.append(result.getData().get(i).get(j));
+                    while (part.toString().length() < columnSizes[j])
+                        part.append(' ');
+                    line.append(part.toString()).append('|');
+                }
+                line.append('\n');
+            }
+            appendIntoTerminal(line.toString());
+            return;
+        }
+
         Platform.runLater(() -> updateResultTableView(result));
     }
 
     public void handleUpdateResult(UpdateResult result) {
-        isProceeding = false;
-
         if (result.isSuccessful()) {
             appendIntoTerminal("Update is successfully done.");
         } else {
@@ -193,8 +257,6 @@ public class MainFormController implements RequestControllerListener {
     }
 
     public void handleConnectionResult(ConnectionResult result) {
-        isProceeding = false;
-
         if (result.isSuccessful()) {
             appendIntoTerminal("Connection established.");
         } else {
@@ -203,8 +265,17 @@ public class MainFormController implements RequestControllerListener {
     }
 
     public void handleWrongRequest() {
-        isProceeding = false;
         appendIntoTerminal("Syntax error.");
+    }
+
+    private void appendIntoTerminal(String line) {
+        Platform.runLater(() -> {
+            if (terminalText.length() != 0)
+                terminalText += "\n";
+            terminalText += line;
+            terminalTextArea.setText(terminalText);
+            terminalTextArea.setScrollTop(Double.MAX_VALUE);
+        });
     }
 
     private void updateResultTableView(QueryResult result) {
@@ -237,16 +308,24 @@ public class MainFormController implements RequestControllerListener {
     private void connect() {
         appendIntoTerminal("Connecting to database...");
         isProceeding = true;
+        isSequentiallyRequesting = false;
 
         requestController = new RequestController(this);
     }
 
     private void makeRequest(String request) {
         isProceeding = true;
-
-        appendIntoTerminal(request);
         appendIntoTerminal("Proceeding...");
-
         requestController.makeRequest(request);
+    }
+
+    private void makeSequentialRequest() {
+        if (sequentialRequestRunner.isWaitingForInput()) {
+            appendIntoTerminal(sequentialRequestRunner.getInputDescription());
+            return;
+        }
+
+        String currentRequest = sequentialRequestRunner.nextRequest();
+        requestController.makeRequest(currentRequest);
     }
 }

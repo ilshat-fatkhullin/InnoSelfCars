@@ -1,0 +1,53 @@
+SELECT pickUpLocation
+FROM (SELECT pickUpLocation, count(pickUpLocation) AS occurrence
+      FROM RentHistory
+      WHERE time >= '7:00'
+        AND time <= '10:00'
+      GROUP BY pickUpLocation
+      ORDER BY occurrence DESC
+      LIMIT 3) AS Morning;
+
+SELECT pickUpLocation
+FROM (SELECT pickUpLocation, count(pickUpLocation) AS occurrence
+      FROM RentHistory
+      WHERE time >= '12:00'
+        AND time <= '14:00'
+      GROUP BY pickUpLocation
+      ORDER BY occurrence DESC
+      LIMIT 3) AS Afternoon;
+
+SELECT pickUpLocation
+FROM (SELECT pickUpLocation, count(pickUpLocation) AS occurrence
+      FROM RentHistory
+      WHERE time >= '17:00'
+        AND time <= '19:00'
+      GROUP BY pickUpLocation
+      ORDER BY occurrence DESC
+      LIMIT 3) AS Evening;
+
+SELECT destinationLocation
+FROM (SELECT destinationLocation, count(destinationLocation) AS occurrence
+      FROM RentHistory
+      WHERE time >= '7:00'
+        AND time <= '10:00'
+      GROUP BY destinationLocation
+      ORDER BY occurrence DESC
+      LIMIT 3) AS Morning;
+
+SELECT destinationLocation
+FROM (SELECT destinationLocation, count(destinationLocation) AS occurrence
+      FROM RentHistory
+      WHERE time >= '12:00'
+        AND time <= '14:00'
+      GROUP BY destinationLocation
+      ORDER BY occurrence DESC
+      LIMIT 3) AS Afternoon;
+
+SELECT destinationLocation
+FROM (SELECT destinationLocation, count(destinationLocation) AS occurrence
+      FROM RentHistory
+      WHERE time >= '17:00'
+        AND time <= '19:00'
+      GROUP BY destinationLocation
+      ORDER BY occurrence DESC
+      LIMIT 3) AS Evening;

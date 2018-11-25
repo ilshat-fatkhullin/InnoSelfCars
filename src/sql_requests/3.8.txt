@@ -1,0 +1,8 @@
+SELECT customer AS userId, SUM(numberOfCharges) AS amount
+FROM (SELECT rentid, customer, ChargesPerDay.numberOfCharges AS numberOfCharges
+      FROM (SELECT rentid, customer, servedCar, date FROM RentHistory WHERE date >= '2018-10-01') AS ShortRentHistory
+             JOIN (SELECT car, date, COUNT((car, date)) AS numberOfCharges
+                   FROM ChargingHistory
+                   GROUP BY (car, date)) AS ChargesPerDay ON (ShortRentHistory.date = ChargesPerDay.date AND
+                                                              ShortRentHistory.servedCar = ChargesPerDay.car)) AS RawNumberOfCharges
+GROUP BY customer;

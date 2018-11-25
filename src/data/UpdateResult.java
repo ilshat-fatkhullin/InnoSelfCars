@@ -8,8 +8,8 @@ public class UpdateResult extends Result {
 
     private int count;
 
-    public UpdateResult(boolean status, int count) {
-        this.isSuccessful = status;
+    public UpdateResult(boolean isSuccessful, int count) {
+        super(isSuccessful);
         this.count = count;
     }
 }

@@ -1,0 +1,4 @@
+SELECT AVG(distanceFromPickupLocationToDestination) + AVG(distanceToPickUpLocation) AS averageDistace,
+       AVG(duration) AS averageDuration
+FROM RentHistory
+WHERE date = '2018-10-29';
