@@ -47,15 +47,15 @@ public class RequestController {
     }
 
     private boolean isCommandRequest(String request) {
-        return doesMatches(request, "(alter|drop|create)[a-zA-Z0-9_ *]*");
+        return doesMatches(request, "(alter|drop|create).*");
     }
 
     private boolean isQueryRequest(String request) {
-        return doesMatches(request, "select[a-zA-Z0-9_ *]*");
+        return doesMatches(request, "select.*");
     }
 
     private boolean isUpdateRequest(String request) {
-        return doesMatches(request, "(insert|delete|update)[a-zA-Z0-9_ *]*");
+        return doesMatches(request, "(insert|delete|update).*");
     }
 
     private boolean doesMatches(String inputLine, String patternLine) {

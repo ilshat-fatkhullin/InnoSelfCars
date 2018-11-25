@@ -20,13 +20,19 @@ import javafx.scene.control.TableColumn.CellDataFeatures;
 public class MainFormController implements RequestControllerListener {
 
     @FXML
-    private Button recoverButton;
+    private Button discardChangesButton;
+
+    @FXML
+    private Button reconnectButton;
 
     @FXML
     private Button runButton;
 
     @FXML
     private Button showButton;
+
+    @FXML
+    private Button clearButton;
 
     @FXML
     private ChoiceBox<String> methodChoiceBox;
@@ -55,10 +61,10 @@ public class MainFormController implements RequestControllerListener {
 
     public MainFormController() {
         methodChoiceBoxList = FXCollections.observableArrayList();
-        methodChoiceBoxList.addAll("Select", "Insert", "Delete", "Drop");
+        methodChoiceBoxList.addAll("3.1", "3.2", "3.3", "3.4", "3.5", "3.6", "3.7", "3.8", "3.9", "3.10");
 
         tableChoiceBoxList = FXCollections.observableArrayList();
-        tableChoiceBoxList.addAll("First table", "Second table", "Third table");
+        tableChoiceBoxList.addAll("Customers", "Charging stations", "Workshops", "Providers");
     }
 
     @FXML
@@ -75,31 +81,46 @@ public class MainFormController implements RequestControllerListener {
             onCommandTextFieldTextChanged();
         });
 
-        appendIntoTerminal("Connecting to database...");
-        isProceeding = true;
-
-        requestController = new RequestController(this);
+        connect();
     }
 
     @FXML
-    private void handleRecoverButtonAction(ActionEvent event) {
+    private void handleDiscardChangesButtonAction(ActionEvent event) {
         if (isProceeding)
             return;
         System.out.println("Clicked 'Recover' button.");
     }
 
     @FXML
+    private void handleReconnectButtonAction(ActionEvent event) {
+        connect();
+    }
+
+    @FXML
     private void handleRunButtonAction(ActionEvent event) {
         if (isProceeding)
             return;
-        System.out.println("Clicked 'Run' button.");
     }
 
     @FXML
     private void handleShowButtonAction(ActionEvent event) {
         if (isProceeding)
             return;
-        System.out.println("Clicked 'Show' button.");
+
+        switch (tableChoiceBox.getValue()) {
+            case "Customers":
+                makeRequest("select * from customers");
+                break;
+            case "Charging stations":
+                makeRequest("select * from chargingStations");
+                break;
+            case "Workshops":
+                makeRequest("select * from workshops");
+                break;
+            case "Providers":
+                makeRequest("select * from providers");
+                break;
+        }
     }
 
     @FXML
@@ -110,16 +131,17 @@ public class MainFormController implements RequestControllerListener {
         if (event.getCode() != KeyCode.ENTER)
             return;
 
-        appendIntoTerminal("Proceeding...");
-
         String command = commandTextField.getText();
 
-        terminalTextArea.setText(terminalText);
         commandTextField.setText("");
 
-        isProceeding = true;
+        makeRequest(command);
+    }
 
-        requestController.makeRequest(command);
+    @FXML
+    private void handleClearButtonAction(ActionEvent event) {
+        terminalTextArea.setText("");
+        terminalText = "";
     }
 
     private void appendIntoTerminal(String line) {
@@ -210,5 +232,21 @@ public class MainFormController implements RequestControllerListener {
 
         resultTableView.getItems().clear();
         resultTableView.setItems(observableRows);
+    }
+
+    private void connect() {
+        appendIntoTerminal("Connecting to database...");
+        isProceeding = true;
+
+        requestController = new RequestController(this);
+    }
+
+    private void makeRequest(String request) {
+        isProceeding = true;
+
+        appendIntoTerminal(request);
+        appendIntoTerminal("Proceeding...");
+
+        requestController.makeRequest(request);
     }
 }
