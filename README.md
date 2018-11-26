@@ -5,7 +5,7 @@
 ## 1. User interface
 
 Main window consists of action buttons, choice boxes, terminal and table view.
-- After starting the application user should all actions are locked, so user should wait until connection will be established. If connection is failed user should check its Internet connection and press **Reconnect** button.
+- After starting the application all actions are locked, so user should wait until connection will be established. If connection is failed user need to check its Internet connection and press **Reconnect** button.
 - Result tables of custom queries are displayed in the table view. 
 - Table choice box provides an ability to select needed table whereas click on **Show** button displays the result in table view.
 - **Run** button click prints into terminal a result of execution of method selected in method choice box.
