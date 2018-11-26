@@ -1,0 +1,86 @@
+WITH MaxCost AS (WITH AverageCostPerDay AS (
+  WITH TotalCostPerDay AS (
+    WITH TotalRange AS (
+      SELECT CH.date
+      FROM ChargingHistory CH
+      UNION
+      SELECT RH.date
+      FROM RepairingHistory RH
+    ), DayRange AS (
+        SELECT (generate_series((SELECT MIN(TR.date) FROM TotalRange TR) :: date,
+                                now(), '1 day') :: timestamp :: date) AS date
+    ), DateJoinType AS (
+        SELECT *
+        FROM DayRange,
+             CarTypes
+    ), CarTypesWithRepairingHistory AS (
+        SELECT C.type, RH.cost, RH.date
+        FROM RepairingHistory AS RH,
+             Cars AS C
+        WHERE RH.car = C.cid
+    ), CarTypesWithChargingHistory AS (
+        SELECT C.type, CH.cost, CH.date
+        FROM ChargingHistory AS CH,
+             Cars AS C
+        WHERE CH.car = C.cid
+    ), CarTypesWithAnyHistory AS (
+      SELECT CTWRH.type, CTWRH.cost, CTWRH.date
+      FROM CarTypesWithRepairingHistory AS CTWRH
+      UNION ALL
+      SELECT CTWCH.type, CTWCH.cost, CTWCH.date
+      FROM CarTypesWithChargingHistory AS CTWCH
+    )
+    SELECT DJT.date, DJT.type, COALESCE(SUM(CTWAH.cost), 0) AS cost
+    FROM DateJoinType AS DJT
+           LEFT OUTER JOIN CarTypesWithAnyHistory AS CTWAH ON DJT.date = CTWAH.date AND DJT.type = CTWAH.type
+    GROUP BY DJT.date, DJT.type
+  )
+  SELECT TCPD.type, AVG(TCPD.cost) AS cost
+  FROM TotalCostPerDay AS TCPD
+  GROUP BY TCPD.type
+)
+    SELECT MAX(ACPD.cost) AS cost
+    FROM AverageCostPerDay ACPD),
+     AverageCostPerDay AS (WITH TotalCostPerDay AS (
+  WITH TotalRange AS (
+    SELECT CH.date
+    FROM ChargingHistory CH
+    UNION
+    SELECT RH.date
+    FROM RepairingHistory RH
+  ), DayRange AS (
+      SELECT (generate_series((SELECT MIN(TR.date) FROM TotalRange TR) :: date,
+                              now(), '1 day') :: timestamp :: date) AS date
+  ), DateJoinType AS (
+      SELECT *
+      FROM DayRange,
+           CarTypes
+  ), CarTypesWithRepairingHistory AS (
+      SELECT C.type, RH.cost, RH.date
+      FROM RepairingHistory AS RH,
+           Cars AS C
+      WHERE RH.car = C.cid
+  ), CarTypesWithChargingHistory AS (
+      SELECT C.type, CH.cost, CH.date
+      FROM ChargingHistory AS CH,
+           Cars AS C
+      WHERE CH.car = C.cid
+  ), CarTypesWithAnyHistory AS (
+    SELECT CTWRH.type, CTWRH.cost, CTWRH.date
+    FROM CarTypesWithRepairingHistory AS CTWRH
+    UNION ALL
+    SELECT CTWCH.type, CTWCH.cost, CTWCH.date
+    FROM CarTypesWithChargingHistory AS CTWCH
+  )
+  SELECT DJT.date, DJT.type, COALESCE(SUM(CTWAH.cost), 0) AS cost
+  FROM DateJoinType AS DJT
+         LEFT OUTER JOIN CarTypesWithAnyHistory AS CTWAH ON DJT.date = CTWAH.date AND DJT.type = CTWAH.type
+  GROUP BY DJT.date, DJT.type
+)
+    SELECT TCPD.type, AVG(TCPD.cost) AS cost
+    FROM TotalCostPerDay AS TCPD
+    GROUP BY TCPD.type)
+SELECT ACPD.type, ACPD.cost
+FROM MaxCost AS MC,
+     AverageCostPerDay AS ACPD
+WHERE MC.cost = ACPD.cost;

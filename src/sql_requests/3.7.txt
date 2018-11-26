@@ -1,12 +1,12 @@
 SELECT *
 FROM (SELECT servedCar, count(servedCar) AS occurrence
       FROM RentHistory
-      WHERE date >= '2018-10-01'
+      WHERE date >= (NOW() - INTERVAL '3 month') :: timestamp :: date
       GROUP BY servedCar
       ORDER BY occurrence) AS OrdersOccurence
 LIMIT (SELECT (COUNT(*) * 0.1) :: integer
        FROM (SELECT servedCar, count(servedCar) AS occurrence
              FROM RentHistory
-             WHERE date >= '2018-10-01'
+             WHERE date >= (NOW() - INTERVAL '3 month') :: timestamp :: date
              GROUP BY servedCar
              ORDER BY occurrence) AS OrdersOccurence);

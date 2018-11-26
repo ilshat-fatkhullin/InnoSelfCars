@@ -1,6 +1,7 @@
 DROP TABLE IF EXISTS Addresses CASCADE;
 DROP TABLE IF EXISTS CarParts CASCADE;
 DROP TABLE IF EXISTS Cars CASCADE;
+DROP TABLE IF EXISTS CarTypes CASCADE;
 DROP TABLE IF EXISTS ChargingHistory CASCADE;
 DROP TABLE IF EXISTS ChargingStations CASCADE;
 DROP TABLE IF EXISTS CSToPlugs CASCADE;
@@ -19,11 +20,36 @@ DROP TABLE IF EXISTS RepairingHistory CASCADE;
 DROP TABLE IF EXISTS Workshops CASCADE;
 DROP TABLE IF EXISTS WorkshopsHaveParts CASCADE;
 
+CREATE TABLE IF NOT EXISTS CarTypes (
+  type VARCHAR(30) PRIMARY KEY
+  );
+
+INSERT INTO CarTypes (type)
+VALUES ('Ford Focus');
+INSERT INTO CarTypes (type)
+VALUES ('Renault Megan');
+INSERT INTO CarTypes (type)
+VALUES ('Renault Fluence');
+INSERT INTO CarTypes (type)
+VALUES ('Renault Sandero');
+INSERT INTO CarTypes (type)
+VALUES ('Renault Duster');
+INSERT INTO CarTypes (type)
+VALUES ('Hyundai Solaris');
+INSERT INTO CarTypes (type)
+VALUES ('Hyundai Sonata');
+INSERT INTO CarTypes (type)
+VALUES ('Opel Astra');
+INSERT INTO CarTypes (type)
+VALUES ('Ford Fiesta');
+
+
 CREATE TABLE IF NOT EXISTS Cars (
   cid   VARCHAR(20) PRIMARY KEY,
   type  VARCHAR(30) NOT NULL,
-  color VARCHAR(20) NOT NULL
-);
+  color VARCHAR(20) NOT NULL,
+  FOREIGN KEY (type) REFERENCES CarTypes(type)
+  );
 
 INSERT INTO Cars (cid, type, color)
 VALUES ('AN843G', 'Ford Focus', 'red');
@@ -47,53 +73,55 @@ INSERT INTO Cars (cid, type, color)
 VALUES ('LS159P', 'Opel Astra', 'white');
 
 CREATE TABLE IF NOT EXISTS CarParts (
-  partid   INTEGER PRIMARY KEY,
-  partType VARCHAR(30) NOT NULL,
-  carType  VARCHAR(30) NOT NULL
-);
+  carType  VARCHAR(30),
+  partType VARCHAR(30),
+  PRIMARY KEY (carType, partType),
+  FOREIGN KEY (carType) REFERENCES CarTypes(type)
+  ON DELETE CASCADE
+  );
 
-INSERT INTO CarParts (partid, partType, carType)
-VALUES (1, 'Windshield washer motor', 'Ford Fiesta');
-INSERT INTO CarParts (partid, partType, carType)
-VALUES (2, 'Alternator', 'Ford Fiesta');
-INSERT INTO CarParts (partid, partType, carType)
-VALUES (3, 'Light sensor', 'Ford Fiesta');
-INSERT INTO CarParts (partid, partType, carType)
-VALUES (4, 'Windshield washer motor', 'Ford Focus');
-INSERT INTO CarParts (partid, partType, carType)
-VALUES (5, 'Alternator', 'Ford Focus');
-INSERT INTO CarParts (partid, partType, carType)
-VALUES (6, 'Light sensor', 'Ford Focus');
-INSERT INTO CarParts (partid, partType, carType)
-VALUES (7, 'Windshield washer motor', 'Renault Megan');
-INSERT INTO CarParts (partid, partType, carType)
-VALUES (8, 'Alternator', 'Renault Megan');
-INSERT INTO CarParts (partid, partType, carType)
-VALUES (9, 'Light sensor', 'Renault Megan');
-INSERT INTO CarParts (partid, partType, carType)
-VALUES (10, 'Windshield washer motor', 'Renault Duster');
-INSERT INTO CarParts (partid, partType, carType)
-VALUES (11, 'Alternator', 'Renault Duster');
-INSERT INTO CarParts (partid, partType, carType)
-VALUES (12, 'Light sensor', 'Renault Duster');
-INSERT INTO CarParts (partid, partType, carType)
-VALUES (13, 'Windshield washer motor', 'Renault Fluence');
-INSERT INTO CarParts (partid, partType, carType)
-VALUES (14, 'Alternator', 'Renault Fluence');
-INSERT INTO CarParts (partid, partType, carType)
-VALUES (15, 'Light sensor', 'Renault Fluence');
-INSERT INTO CarParts (partid, partType, carType)
-VALUES (16, 'Windshield washer motor', 'Renault Sandero');
-INSERT INTO CarParts (partid, partType, carType)
-VALUES (17, 'Alternator', 'Renault Sandero');
-INSERT INTO CarParts (partid, partType, carType)
-VALUES (18, 'Light sensor', 'Renault Sandero');
+INSERT INTO CarParts (partType, carType)
+VALUES ('Windshield washer motor', 'Ford Fiesta');
+INSERT INTO CarParts (partType, carType)
+VALUES ('Alternator', 'Ford Fiesta');
+INSERT INTO CarParts (partType, carType)
+VALUES ('Light sensor', 'Ford Fiesta');
+INSERT INTO CarParts (partType, carType)
+VALUES ('Windshield washer motor', 'Ford Focus');
+INSERT INTO CarParts (partType, carType)
+VALUES ('Alternator', 'Ford Focus');
+INSERT INTO CarParts (partType, carType)
+VALUES ('Light sensor', 'Ford Focus');
+INSERT INTO CarParts (partType, carType)
+VALUES ('Windshield washer motor', 'Renault Megan');
+INSERT INTO CarParts (partType, carType)
+VALUES ('Alternator', 'Renault Megan');
+INSERT INTO CarParts (partType, carType)
+VALUES ('Light sensor', 'Renault Megan');
+INSERT INTO CarParts (partType, carType)
+VALUES ('Windshield washer motor', 'Renault Duster');
+INSERT INTO CarParts (partType, carType)
+VALUES ('Alternator', 'Renault Duster');
+INSERT INTO CarParts (partType, carType)
+VALUES ('Light sensor', 'Renault Duster');
+INSERT INTO CarParts (partType, carType)
+VALUES ('Windshield washer motor', 'Renault Fluence');
+INSERT INTO CarParts (partType, carType)
+VALUES ('Alternator', 'Renault Fluence');
+INSERT INTO CarParts (partType, carType)
+VALUES ('Light sensor', 'Renault Fluence');
+INSERT INTO CarParts (partType, carType)
+VALUES ('Windshield washer motor', 'Renault Sandero');
+INSERT INTO CarParts (partType, carType)
+VALUES ('Alternator', 'Renault Sandero');
+INSERT INTO CarParts (partType, carType)
+VALUES ('Light sensor', 'Renault Sandero');
 
 CREATE TABLE IF NOT EXISTS Locations (
   zipCode VARCHAR(10) PRIMARY KEY,
   city    VARCHAR(20) NOT NULL,
   country VARCHAR(20) NOT NULL
-);
+  );
 
 INSERT INTO Locations (zipCode, city, country)
 VALUES ('420000', 'Kazan', 'Russia');
@@ -129,7 +157,7 @@ CREATE TABLE IF NOT EXISTS Customers (
   location    VARCHAR(10) NOT NULL NOT NULL,
   cardNumber  VARCHAR(30) NOT NULL,
   FOREIGN KEY (location) REFERENCES Locations (zipCode)
-);
+  );
 
 INSERT INTO Customers (username, firstName, secondName, email, phoneNumber, location, cardNumber)
 VALUES ('245', 'Alex', 'Ivanov', 'a.ivanov@gmail.com', '+79437458723', '420202', '5674-8746-9323-9374');
@@ -149,8 +177,8 @@ INSERT INTO Customers (username, firstName, secondName, email, phoneNumber, loca
 VALUES ('18', 'Ada', 'Anderson', 'a.anderson@yahoo.com', '+78636728898', '420076', '4324-2146-4353-1353');
 
 CREATE TABLE IF NOT EXISTS RentHistory (
-  rentid                                  SERIAL PRIMARY KEY,
-  customer                                VARCHAR(20) NOT NULL,
+                                         rentid                                  SERIAL PRIMARY KEY,
+                                         customer                                VARCHAR(20) NOT NULL,
   servedCar                               VARCHAR(20) NOT NULL,
   pickUpLocation                          VARCHAR(10) NOT NULL,
   date                                    DATE        NOT NULL,
@@ -161,7 +189,7 @@ CREATE TABLE IF NOT EXISTS RentHistory (
   FOREIGN KEY (pickUpLocation) REFERENCES Locations (zipCode),
   FOREIGN KEY (servedCar) REFERENCES Cars (cid),
   FOREIGN KEY (customer) REFERENCES Customers (username)
-);
+  );
 
 INSERT INTO RentHistory (customer,
                          servedCar,
@@ -264,15 +292,15 @@ INSERT INTO RentHistory (customer,
 VALUES ('8547', 'FE246K', '420039', '2018-11-25', '12:08', 12, 1.2, 14.6);
 
 CREATE TABLE IF NOT EXISTS PaymentHistory (
-  paymentid SERIAL PRIMARY KEY,
-  customer  VARCHAR(20) NOT NULL,
+                                            paymentid SERIAL PRIMARY KEY,
+                                            customer  VARCHAR(20) NOT NULL,
   rentid    INTEGER     NOT NULL,
   date      DATE        NOT NULL,
   time      TIME        NOT NULL,
   cost      REAL        NOT NULL,
   FOREIGN KEY (customer) REFERENCES Customers (username),
   FOREIGN KEY (rentid) REFERENCES RentHistory (rentid)
-);
+  );
 
 INSERT INTO PaymentHistory (customer, rentid, date, time, cost)
 VALUES ('18', 1, '2018-10-29', '09:59', 320);
@@ -309,7 +337,7 @@ CREATE TABLE IF NOT EXISTS Addresses (
   UNIQUE (gpsLattitude, gpsLongitude),
   FOREIGN KEY (zipCode) REFERENCES Locations (zipCode)
   ON DELETE CASCADE
-);
+  );
 
 INSERT INTO Addresses (zipCode, street, buildingNumber, gpsLattitude, gpsLongitude)
 VALUES ('420000', 'Kopylova St.', '5/1', 55.852792, 49.083933);
@@ -339,10 +367,10 @@ INSERT INTO Addresses (zipCode, street, buildingNumber, gpsLattitude, gpsLongitu
 VALUES ('420202', 'Patris Lumumba St.', '47A', 55.794935, 49.185557);
 
 CREATE TABLE IF NOT EXISTS Plugs (
-  plugid INTEGER PRIMARY KEY,
-  shape  VARCHAR(20) NOT NULL,
+                                   plugid INTEGER PRIMARY KEY,
+                                   shape  VARCHAR(20) NOT NULL,
   size   INTEGER     NOT NULL
-);
+  );
 
 INSERT INTO Plugs (plugid, shape, size)
 VALUES (1, 'A', '1');
@@ -360,14 +388,14 @@ INSERT INTO Plugs (plugid, shape, size)
 VALUES (7, 'D', '3');
 
 CREATE TABLE IF NOT EXISTS ChargingStations (
-  uid              INTEGER PRIMARY KEY,
-  availableSockets INTEGER NOT NULL,
-  price            REAL    NOT NULL,
-  chargingTime     REAL    NOT NULL,
-  gpsLattitude     REAL    NOT NULL,
-  gpsLongitude     REAL    NOT NULL,
-  UNIQUE (gpsLattitude, gpsLongitude)
-);
+                                              uid              INTEGER PRIMARY KEY,
+                                              availableSockets INTEGER NOT NULL,
+                                              price            REAL    NOT NULL,
+                                              chargingTime     REAL    NOT NULL,
+                                              gpsLattitude     REAL    NOT NULL,
+                                              gpsLongitude     REAL    NOT NULL,
+                                              UNIQUE (gpsLattitude, gpsLongitude)
+  );
 
 INSERT INTO ChargingStations (uid, availableSockets, price, chargingTime, gpsLattitude, gpsLongitude)
 VALUES (1, 3, 32, 21, 55.84444, 49.121258);
@@ -379,12 +407,12 @@ INSERT INTO ChargingStations (uid, availableSockets, price, chargingTime, gpsLat
 VALUES (4, 2, 41, 13, 55.822073, 49.021351);
 
 CREATE TABLE IF NOT EXISTS CSToPlugs (
-  uid    INTEGER,
-  plugid INTEGER,
-  PRIMARY KEY (plugid, uid),
+                                       uid    INTEGER,
+                                       plugid INTEGER,
+                                       PRIMARY KEY (plugid, uid),
   FOREIGN KEY (plugid) REFERENCES Plugs (plugid),
   FOREIGN KEY (uid) REFERENCES ChargingStations (uid)
-);
+  );
 
 INSERT INTO CSToPlugs (uid, plugid)
 VALUES (1, 1);
@@ -404,9 +432,9 @@ INSERT INTO CSToPlugs (uid, plugid)
 VALUES (2, 1);
 
 CREATE TABLE IF NOT EXISTS ChargingHistory (
-  chargingid      SERIAL PRIMARY KEY,
-  chagringStation INTEGER     NOT NULL,
-  car             VARCHAR(20) NOT NULL,
+                                             chargingid      SERIAL PRIMARY KEY,
+                                             chagringStation INTEGER     NOT NULL,
+                                             car             VARCHAR(20) NOT NULL,
   plug            INTEGER     NOT NULL,
   date            DATE        NOT NULL,
   time            TIME        NOT NULL,
@@ -414,7 +442,7 @@ CREATE TABLE IF NOT EXISTS ChargingHistory (
   cost            REAL        NOT NULL,
   FOREIGN KEY (chagringStation, plug) REFERENCES CSToPlugs (uid, plugid),
   FOREIGN KEY (car) REFERENCES Cars (cid)
-);
+  );
 
 INSERT INTO ChargingHistory (chagringStation, car, plug, date, time, amount, cost)
 VALUES (1, 'AN043E', 4, '2018-10-29', '14:54', 21, 1300);
@@ -430,12 +458,12 @@ INSERT INTO ChargingHistory (chagringStation, car, plug, date, time, amount, cos
 VALUES (2, 'DI151K', 2, '2018-11-24', '13:26', 36, 1204);
 
 CREATE TABLE IF NOT EXISTS ParkingStations (
-  pid          INTEGER,
-  gpsLattitude REAL,
-  gpsLongitude REAL,
-  PRIMARY KEY (pid),
+                                             pid          INTEGER,
+                                             gpsLattitude REAL,
+                                             gpsLongitude REAL,
+                                             PRIMARY KEY (pid),
   UNIQUE (gpsLattitude, gpsLongitude)
-);
+  );
 
 INSERT INTO ParkingStations (pid, gpsLattitude, gpsLongitude)
 VALUES (1, 55.829402, 48.989422);
@@ -445,16 +473,16 @@ INSERT INTO ParkingStations (pid, gpsLattitude, gpsLongitude)
 VALUES (3, 55.821881, 49.085896);
 
 CREATE TABLE IF NOT EXISTS ParkingPlaces (
-  pid          INTEGER,
-  placeid      INTEGER,
-  available    BOOLEAN,
-  gpsLattitude REAL,
-  gpsLongitude REAL,
-  UNIQUE (gpsLattitude, gpsLongitude),
+                                           pid          INTEGER,
+                                           placeid      INTEGER,
+                                           available    BOOLEAN,
+                                           gpsLattitude REAL,
+                                           gpsLongitude REAL,
+                                           UNIQUE (gpsLattitude, gpsLongitude),
   PRIMARY KEY (pid, placeid),
   FOREIGN KEY (pid) REFERENCES ParkingStations (pid)
   ON DELETE CASCADE
-);
+  );
 
 INSERT INTO ParkingPlaces (pid, placeid, available, gpsLattitude, gpsLongitude)
 VALUES (1, 1, TRUE, 55.829404, 48.989421);
@@ -482,8 +510,8 @@ INSERT INTO ParkingPlaces (pid, placeid, available, gpsLattitude, gpsLongitude)
 VALUES (3, 5, TRUE, 55.821879, 49.085899);
 
 CREATE TABLE IF NOT EXISTS ParkingHistory (
-  parkingid      SERIAL PRIMARY KEY,
-  car            VARCHAR(20) NOT NULL,
+                                            parkingid      SERIAL PRIMARY KEY,
+                                            car            VARCHAR(20) NOT NULL,
   parkingStation INTEGER     NOT NULL,
   parkingPlace   INTEGER     NOT NULL,
   date           DATE        NOT NULL,
@@ -491,7 +519,7 @@ CREATE TABLE IF NOT EXISTS ParkingHistory (
   duration       INTEGER        NOT NULL,
   FOREIGN KEY (car) REFERENCES Cars (cid),
   FOREIGN KEY (parkingStation, parkingPlace) REFERENCES ParkingPlaces (pid, placeid)
-);
+  );
 
 INSERT INTO ParkingHistory (car, parkingStation, parkingPlace, date, time, duration)
 VALUES ('AN843G', 1, 4, '2018-11-12', '12:34', 12);
@@ -509,15 +537,15 @@ INSERT INTO ParkingHistory (car, parkingStation, parkingPlace, date, time, durat
 VALUES ('DI151K', 3, 1, '2018-11-24', '19:43', 41);
 
 CREATE TABLE IF NOT EXISTS Workshops (
-  wid            INTEGER PRIMARY KEY,
-  openHour       TIME        NOT NULL,
-  closeHour      TIME        NOT NULL,
-  zipCode        VARCHAR(10) NOT NULL,
+                                       wid            INTEGER PRIMARY KEY,
+                                       openHour       TIME        NOT NULL,
+                                       closeHour      TIME        NOT NULL,
+                                       zipCode        VARCHAR(10) NOT NULL,
   street         VARCHAR(40) NOT NULL,
   buildingNumber VARCHAR(10) NOT NULL,
   cardNumber     VARCHAR(30) NOT NULL,
   FOREIGN KEY (zipCode, street, buildingNumber) REFERENCES Addresses (zipCode, street, buildingNumber)
-);
+  );
 
 INSERT INTO Workshops (wid, openHour, closeHour, zipCode, street, buildingNumber, cardNumber)
 VALUES (1, '9:00', '21:30', '420000', 'Kopylova St.', '5/1', '8904-1249-4392-9385');
@@ -529,36 +557,37 @@ INSERT INTO Workshops (wid, openHour, closeHour, zipCode, street, buildingNumber
 VALUES (4, '11:30', '21:00', '420073', 'Orenburgskiy Trakt St.', '15', '7238-2857-2957-1057');
 
 CREATE TABLE IF NOT EXISTS WorkshopsHaveParts (
-  workshopid INTEGER,
-  partid     INTEGER,
-  PRIMARY KEY (workshopid, partid),
+                                                workshopid INTEGER,
+                                                carType VARCHAR(30),
+  partType VARCHAR(30),
+  PRIMARY KEY (workshopid, carType, partType),
   FOREIGN KEY (workshopid) REFERENCES Workshops (wid),
-  FOREIGN KEY (partid) REFERENCES CarParts (partid)
-);
+  FOREIGN KEY (carType, partType) REFERENCES CarParts(carType, partType)
+  );
 
-INSERT INTO WorkshopsHaveParts (workshopid, partid)
-VALUES (1, 1);
-INSERT INTO WorkshopsHaveParts (workshopid, partid)
-VALUES (2, 2);
-INSERT INTO WorkshopsHaveParts (workshopid, partid)
-VALUES (3, 3);
-INSERT INTO WorkshopsHaveParts (workshopid, partid)
-VALUES (4, 4);
-INSERT INTO WorkshopsHaveParts (workshopid, partid)
-VALUES (3, 5);
-INSERT INTO WorkshopsHaveParts (workshopid, partid)
-VALUES (3, 6);
+INSERT INTO WorkshopsHaveParts (workshopid, carType, partType)
+VALUES (1, 'Ford Fiesta', 'Windshield washer motor');
+INSERT INTO WorkshopsHaveParts (workshopid, carType, partType)
+VALUES (2, 'Ford Fiesta', 'Alternator');
+INSERT INTO WorkshopsHaveParts (workshopid, carType, partType)
+VALUES (3, 'Ford Fiesta', 'Light sensor');
+INSERT INTO WorkshopsHaveParts (workshopid, carType, partType)
+VALUES (4, 'Ford Focus', 'Windshield washer motor');
+INSERT INTO WorkshopsHaveParts (workshopid, carType, partType)
+VALUES (3, 'Ford Focus', 'Alternator');
+INSERT INTO WorkshopsHaveParts (workshopid, carType, partType)
+VALUES (3, 'Ford Focus', 'Light sensor');
 
 CREATE TABLE IF NOT EXISTS Providers (
-  companyid      INTEGER PRIMARY KEY,
-  name           VARCHAR(50) NOT NULL,
+                                       companyid      INTEGER PRIMARY KEY,
+                                       name           VARCHAR(50) NOT NULL,
   zipCode        VARCHAR(10) NOT NULL,
   street         VARCHAR(40) NOT NULL,
   buildingNumber VARCHAR(10) NOT NULL,
   phoneNumber    VARCHAR(15) NOT NULL,
   cardNumber     VARCHAR(30) NOT NULL,
   FOREIGN KEY (zipCode, street, buildingNumber) REFERENCES Addresses (zipCode, street, buildingNumber)
-);
+  );
 
 INSERT INTO Providers (companyid, name, zipCode, street, buildingNumber, phoneNumber, cardNumber)
 VALUES (1, 'Sector Car', '420039', 'Tulpar St.', '5', '+73295238528', '2581-3591-2957-1925');
@@ -568,65 +597,67 @@ INSERT INTO Providers (companyid, name, zipCode, street, buildingNumber, phoneNu
 VALUES (3, 'Silver Fox', '420202', 'Patris Lumumba St.', '47A', '+73856295835', '3958-2951-3957-2495');
 
 CREATE TABLE IF NOT EXISTS Provides (
-  workshop INTEGER,
-  provider INTEGER,
-  carPart  INTEGER,
-  PRIMARY KEY (workshop, provider, carPart),
+                                      workshop INTEGER,
+                                      provider INTEGER,
+                                      carType VARCHAR(30),
+  partType VARCHAR(30),
+  PRIMARY KEY (workshop, provider, carType, partType),
   FOREIGN KEY (workshop) REFERENCES Workshops (wid),
   FOREIGN KEY (provider) REFERENCES Providers (companyid),
-  FOREIGN KEY (carPart) REFERENCES CarParts (partid)
-);
+  FOREIGN KEY (carType, partType) REFERENCES CarParts (carType, partType)
+  );
 
-INSERT INTO Provides (workshop, provider, carPart)
-VALUES (1, 1, 1);
-INSERT INTO Provides (workshop, provider, carPart)
-VALUES (2, 1, 2);
-INSERT INTO Provides (workshop, provider, carPart)
-VALUES (3, 2, 3);
-INSERT INTO Provides (workshop, provider, carPart)
-VALUES (4, 2, 4);
-INSERT INTO Provides (workshop, provider, carPart)
-VALUES (3, 3, 5);
-INSERT INTO Provides (workshop, provider, carPart)
-VALUES (2, 3, 6);
+INSERT INTO Provides (workshop, provider, carType, partType)
+VALUES (1, 1, 'Ford Fiesta', 'Windshield washer motor');
+INSERT INTO Provides (workshop, provider, carType, partType)
+VALUES (2, 1, 'Ford Fiesta', 'Alternator');
+INSERT INTO Provides (workshop, provider, carType, partType)
+VALUES (3, 2, 'Ford Fiesta', 'Light sensor');
+INSERT INTO Provides (workshop, provider, carType, partType)
+VALUES (4, 2,  'Ford Focus', 'Windshield washer motor');
+INSERT INTO Provides (workshop, provider, carType, partType)
+VALUES (3, 3,  'Ford Focus', 'Alternator');
+INSERT INTO Provides (workshop, provider, carType, partType)
+VALUES (2, 3,  'Ford Focus', 'Light sensor');
 
 CREATE TABLE IF NOT EXISTS ProvidingHistory (
-  providingid SERIAL PRIMARY KEY,
-  carPart     INTEGER NOT NULL,
-  provider    INTEGER NOT NULL,
-  workshop    INTEGER NOT NULL,
+                                              providingid SERIAL PRIMARY KEY,
+                                              provider    INTEGER NOT NULL,
+                                              workshop    INTEGER NOT NULL,
+                                              carType VARCHAR(30),
+  partType VARCHAR(30),
   date        DATE    NOT NULL,
   amount      INTEGER NOT NULL,
   cost        REAL    NOT NULL,
   FOREIGN KEY (workshop) REFERENCES Workshops (wid),
   FOREIGN KEY (provider) REFERENCES Providers (companyid),
-  FOREIGN KEY (carPart) REFERENCES CarParts (partid)
-);
+  FOREIGN KEY (carType, partType) REFERENCES CarParts(carType, partType)
+  );
 
-INSERT INTO ProvidingHistory (carPart, provider, workshop, date, amount, cost)
-VALUES (1, 1, 1, '2018-11-15', 5, 50000);
-INSERT INTO ProvidingHistory (carPart, provider, workshop, date, amount, cost)
-VALUES (1, 1, 1, '2018-10-26', 10, 250000);
-INSERT INTO ProvidingHistory (carPart, provider, workshop, date, amount, cost)
-VALUES (2, 1, 2, '2018-11-27', 15, 350000);
-INSERT INTO ProvidingHistory (carPart, provider, workshop, date, amount, cost)
-VALUES (2, 1, 2, '2018-10-18', 20, 500000);
-INSERT INTO ProvidingHistory (carPart, provider, workshop, date, amount, cost)
-VALUES (3, 2, 3, '2018-11-28', 5, 150000);
-INSERT INTO ProvidingHistory (carPart, provider, workshop, date, amount, cost)
-VALUES (4, 2, 4, '2018-10-29', 10, 250000);
-INSERT INTO ProvidingHistory (carPart, provider, workshop, date, amount, cost)
-VALUES (5, 3, 3, '2018-11-18', 15, 350000);
+INSERT INTO ProvidingHistory (carType, partType, provider, workshop, date, amount, cost)
+VALUES ('Ford Fiesta', 'Windshield washer motor', 1, 1, '2018-11-15', 5, 50000);
+INSERT INTO ProvidingHistory (carType, partType, provider, workshop, date, amount, cost)
+VALUES ('Ford Fiesta', 'Windshield washer motor', 1, 1, '2018-10-26', 10, 250000);
+INSERT INTO ProvidingHistory (carType, partType, provider, workshop, date, amount, cost)
+VALUES ('Ford Fiesta', 'Alternator', 1, 2, '2018-11-27', 15, 350000);
+INSERT INTO ProvidingHistory (carType, partType, provider, workshop, date, amount, cost)
+VALUES ('Ford Fiesta', 'Alternator', 1, 2, '2018-10-18', 20, 500000);
+INSERT INTO ProvidingHistory (carType, partType, provider, workshop, date, amount, cost)
+VALUES ('Ford Fiesta', 'Light sensor', 2, 3, '2018-11-28', 5, 150000);
+INSERT INTO ProvidingHistory (carType, partType, provider, workshop, date, amount, cost)
+VALUES ('Ford Focus', 'Windshield washer motor', 2, 4, '2018-10-29', 10, 250000);
+INSERT INTO ProvidingHistory (carType, partType, provider, workshop, date, amount, cost)
+VALUES ('Ford Focus', 'Alternator', 3, 3, '2018-11-18', 15, 350000);
 
 CREATE TABLE IF NOT EXISTS RepairingHistory (
-  repairingid SERIAL PRIMARY KEY,
-  car         VARCHAR(20) NOT NULL,
+                                              repairingid SERIAL PRIMARY KEY,
+                                              car         VARCHAR(20) NOT NULL,
   workshop    INTEGER     NOT NULL,
   cost        REAL        NOT NULL,
   date        DATE        NOT NULL,
   FOREIGN KEY (workshop) REFERENCES Workshops (wid),
   FOREIGN KEY (car) REFERENCES Cars (cid)
-);
+  );
 
 INSERT INTO RepairingHistory (car, workshop, cost, date)
 VALUES ('BE259L', 1, 100000, '2018-11-15');

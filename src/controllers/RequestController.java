@@ -48,7 +48,7 @@ public class RequestController {
     }
 
     private boolean isQueryRequest(String request) {
-        return doesMatches(request, "select.*");
+        return doesMatches(request, "(with|select).*");
     }
 
     private boolean isUpdateRequest(String request) {

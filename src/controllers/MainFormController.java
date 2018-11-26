@@ -72,6 +72,7 @@ public class MainFormController implements RequestControllerListener {
         tableChoiceBoxItemsToTables = new Hashtable<>();
         tableChoiceBoxItemsToTables.put("Addresses", "Addresses");
         tableChoiceBoxItemsToTables.put("Car parts", "CarParts");
+        tableChoiceBoxItemsToTables.put("Car types", "CarTypes");
         tableChoiceBoxItemsToTables.put("Cars", "Cars");
         tableChoiceBoxItemsToTables.put("Charging history", "ChargingHistory");
         tableChoiceBoxItemsToTables.put("Charging stations", "ChargingStations");

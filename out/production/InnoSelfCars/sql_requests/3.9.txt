@@ -1,0 +1,26 @@
+WITH MaxPerWorkshop AS (WITH PartsPerAverage AS (
+  WITH WeekSumPerWorkshopPerPart AS (
+      SELECT P.workshop, P.carType, P.partType, EXTRACT(WEEK FROM P.date) AS week, SUM(amount)
+      FROM ProvidingHistory P
+      GROUP BY P.workshop, P.carType, P.partType, EXTRACT(WEEK FROM P.date)
+  )
+  SELECT WS.workshop, WS.carType, WS.partType, CEIL(AVG(WS.sum)) AS average
+  FROM WeekSumPerWorkshopPerPart AS WS
+  GROUP BY WS.workshop, WS.carType, WS.partType
+)
+    SELECT PPA.workshop, MAX(PPA.average) AS amount
+    FROM PartsPerAverage AS PPA
+    GROUP BY PPA.workshop),
+     PartsPerAverage AS (WITH WeekSumPerWorkshopPerPart AS (
+    SELECT P.workshop, P.carType, P.partType, EXTRACT(WEEK FROM P.date) AS week, SUM(amount)
+    FROM ProvidingHistory P
+    GROUP BY P.workshop, P.carType, P.partType, EXTRACT(WEEK FROM P.date)
+)
+    SELECT WS.workshop, WS.carType, WS.partType, CEIL(AVG(WS.sum)) AS average
+    FROM WeekSumPerWorkshopPerPart AS WS
+    GROUP BY WS.workshop, WS.carType, WS.partType)
+SELECT MPW.workshop, PPA.carType, PPA.partType, MPW.amount
+FROM MaxPerWorkshop AS MPW,
+     PartsPerAverage AS PPA
+WHERE MPW.amount = PPA.average
+ORDER BY MPW.workshop;

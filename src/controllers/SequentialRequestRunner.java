@@ -57,5 +57,6 @@ public class SequentialRequestRunner {
 
     public void setInput(String input) {
         requests.set(currentRequestIndex, requests.get(currentRequestIndex).replaceAll(divider + getInputDescription() + divider, input));
+        System.out.println(requests.get(currentRequestIndex));
     }
 }

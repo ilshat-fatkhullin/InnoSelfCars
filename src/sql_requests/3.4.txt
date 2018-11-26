@@ -1,8 +1,5 @@
-SELECT date, time
-FROM (SELECT date, time, count((date, time)) AS occurrence
-      FROM RentHistory
-      WHERE customer = '18'
-        AND date >= '2018-10-1'
-      GROUP BY date, time
-      ORDER BY occurrence DESC) AS PaymentOccurence
-WHERE occurrence > 1;
+SELECT paymentid, rentid, date, time, cost
+FROM PaymentHistory
+WHERE customer = '8547'
+  AND date >= (NOW() - INTERVAL '31 days') :: timestamp :: date
+ORDER BY paymentid;

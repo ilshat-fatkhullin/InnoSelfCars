@@ -1,0 +1,16 @@
+WITH ResultTable AS (WITH Hours AS (
+    SELECT generate_series('2018-01-01 00:00' :: timestamp,
+                           '2018-01-01 23:00', '1 hours'
+               ) AS hour
+), ChargingOnDate AS (
+    SELECT H.plug, H.time
+    FROM ChargingHistory H
+    WHERE H.date = '2018-11-24'
+)
+    SELECT EXTRACT(HOUR FROM hours.hour) AS hour, count(COD.plug) AS count
+    FROM Hours
+           LEFT OUTER JOIN ChargingOnDate AS COD ON EXTRACT(HOUR FROM COD.time) = EXTRACT(HOUR FROM hours.hour)
+    GROUP BY EXTRACT(HOUR FROM hours.hour)
+    ORDER BY EXTRACT(HOUR FROM hours.hour))
+SELECT R.hour || 'h' || ' - ' || R.hour + 1 || 'h' AS "interval", R.count AS plugsOccupied
+FROM ResultTable R;
