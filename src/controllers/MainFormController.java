@@ -1,6 +1,7 @@
 package controllers;
 
-import data.*;
+import data.StringConstants;
+import models.*;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;

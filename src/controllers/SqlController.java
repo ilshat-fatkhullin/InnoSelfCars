@@ -2,16 +2,12 @@ package controllers;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Properties;
 
 import data.StringConstants;
-import data.CommandResult;
-import data.UpdateResult;
-import data.QueryResult;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import models.CommandResult;
+import models.UpdateResult;
+import models.QueryResult;
 
 public class SqlController {
 

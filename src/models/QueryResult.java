@@ -1,7 +1,6 @@
-package data;
+package models;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class QueryResult extends Result{
 

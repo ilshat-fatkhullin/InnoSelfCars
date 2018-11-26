@@ -1,6 +1,6 @@
 package controllers;
 
-import data.*;
+import models.*;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
