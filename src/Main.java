@@ -3,6 +3,9 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import views.MainFormView;
 
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
 public class Main extends Application {
 
     private MainFormView mainFormView;

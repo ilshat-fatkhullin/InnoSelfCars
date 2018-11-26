@@ -1,20 +1,23 @@
-WITH TotalAmount AS (SELECT COUNT(rentid) AS total FROM RentHistory)
+WITH TotalAmount AS (
+     SELECT COUNT(rentid) AS total
+     FROM RentHistory
+)
 SELECT *
-FROM (SELECT ROUND(100.0 * count(rentid) / (SELECT total FROM TotalAmount)) AS morning
+FROM (SELECT ROUND(100.0*count(rentid)/(SELECT total FROM TotalAmount)) AS morning
       FROM RentHistory
-      WHERE date >= '2018-11-19'
-        AND date < '2018-11-26'
+      WHERE date >= '#Week beginning date, for example 2018-11-19:#'
+        AND date < DATE '#Week beginning date, for example 2018-11-19:#' + INTERVAL '1 week'
         AND time >= '7:00'
         AND time <= '10:00') AS morning,
-     (SELECT ROUND(100.0 * count(rentid) / (SELECT total FROM TotalAmount)) AS afternoon
+     (SELECT ROUND(100.0*count(rentid)/(SELECT total FROM TotalAmount)) AS afternoon
       FROM RentHistory
-      WHERE date >= '2018-11-19'
-        AND date < '2018-11-26'
+      WHERE date >= '#Week beginning date, for example 2018-11-19:#'
+        AND date < DATE '#Week beginning date, for example 2018-11-19:#' + INTERVAL '1 week'
         AND time >= '12:00'
         AND time <= '14:00') AS afternoon,
-     (SELECT ROUND(100.0 * count(rentid) / (SELECT total FROM TotalAmount)) AS evening
+     (SELECT ROUND(100.0*count(rentid)/(SELECT total FROM TotalAmount)) AS evening
       FROM RentHistory
-      WHERE date >= '2018-11-19'
-        AND date < '2018-11-26'
+      WHERE date >= '#Week beginning date, for example 2018-11-19:#'
+        AND date < DATE '#Week beginning date, for example 2018-11-19:#' + INTERVAL '1 week'
         AND time >= '17:00'
         AND time <= '19:00') AS evening;

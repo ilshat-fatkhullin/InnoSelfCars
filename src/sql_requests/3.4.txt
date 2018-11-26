@@ -1,5 +1,5 @@
 SELECT paymentid, rentid, date, time, cost
 FROM PaymentHistory
-WHERE customer = '8547'
+WHERE customer = '#Customer, for example 8547:#'
   AND date >= (NOW() - INTERVAL '31 days') :: timestamp :: date
 ORDER BY paymentid;

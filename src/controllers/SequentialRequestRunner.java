@@ -48,7 +48,7 @@ public class SequentialRequestRunner {
     }
 
     public boolean isWaitingForInput() {
-        return requests.get(currentRequestIndex).matches(".*" + divider + "[^#.]*" + divider + ".*");
+        return requests.get(currentRequestIndex).matches(".*" + divider + "[^" + divider + ".]*" + divider + ".*");
     }
 
     public String getInputDescription() {
@@ -57,6 +57,5 @@ public class SequentialRequestRunner {
 
     public void setInput(String input) {
         requests.set(currentRequestIndex, requests.get(currentRequestIndex).replaceAll(divider + getInputDescription() + divider, input));
-        System.out.println(requests.get(currentRequestIndex));
     }
 }

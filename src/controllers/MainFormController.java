@@ -1,6 +1,7 @@
 package controllers;
 
 import data.StringConstants;
+import javafx.beans.value.ChangeListener;
 import models.*;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
@@ -55,8 +56,6 @@ public class MainFormController implements RequestControllerListener {
 
     private ObservableList<String> tableChoiceBoxList;
 
-    private String terminalText;
-
     private boolean isProceeding;
 
     private boolean isSequentiallyRequesting;
@@ -98,17 +97,31 @@ public class MainFormController implements RequestControllerListener {
 
     @FXML
     private void initialize() {
+        showButton.setOnAction(this::handleShowButtonAction);
+        runButton.setOnAction(this::handleRunButtonAction);
+        clearButton.setOnAction(this::handleClearButtonAction);
+        reconnectButton.setOnAction(this::handleReconnectButtonAction);
+        discardChangesButton.setOnAction(this::handleDiscardChangesButtonAction);
+
         methodChoiceBox.setItems(methodChoiceBoxList);
         methodChoiceBox.getSelectionModel().selectFirst();
         tableChoiceBox.setItems(tableChoiceBoxList);
         tableChoiceBox.getSelectionModel().selectFirst();
 
-        terminalText = "";
         isProceeding = false;
         isSequentiallyRequesting = false;
 
         commandTextField.textProperty().addListener((obs, oldText, newText) -> {
             onCommandTextFieldTextChanged();
+        });
+
+        terminalTextArea.textProperty().addListener(new ChangeListener<Object>() {
+            @Override
+            public void changed(ObservableValue<?> observable, Object oldValue,
+                                Object newValue) {
+                terminalTextArea.setScrollTop(Double.MAX_VALUE);
+                terminalTextArea.setScrollLeft(Double.MIN_VALUE);
+            }
         });
 
         connect();
@@ -153,7 +166,6 @@ public class MainFormController implements RequestControllerListener {
     @FXML
     private void handleClearButtonAction(ActionEvent event) {
         terminalTextArea.setText("");
-        terminalText = "";
     }
 
     @FXML
@@ -272,11 +284,9 @@ public class MainFormController implements RequestControllerListener {
 
     private void appendIntoTerminal(String line) {
         Platform.runLater(() -> {
-            if (terminalText.length() != 0)
-                terminalText += "\n";
-            terminalText += line;
-            terminalTextArea.setText(terminalText);
-            terminalTextArea.setScrollTop(Double.MAX_VALUE);
+            if (terminalTextArea.getText().length() != 0)
+                terminalTextArea.appendText("\n");
+            terminalTextArea.appendText(line);
         });
     }
 
@@ -323,10 +333,12 @@ public class MainFormController implements RequestControllerListener {
 
     private void makeSequentialRequest() {
         if (sequentialRequestRunner.isWaitingForInput()) {
+            isProceeding = false;
             appendIntoTerminal(sequentialRequestRunner.getInputDescription());
             return;
         }
 
+        isProceeding = true;
         String currentRequest = sequentialRequestRunner.nextRequest();
         requestController.makeRequest(currentRequest);
     }

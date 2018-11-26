@@ -1,4 +1,4 @@
-SELECT pickUpLocation
+SELECT pickUpLocation AS morningPickUpLocation
 FROM (SELECT pickUpLocation, count(pickUpLocation) AS occurrence
       FROM RentHistory
       WHERE time >= '7:00'
@@ -7,7 +7,7 @@ FROM (SELECT pickUpLocation, count(pickUpLocation) AS occurrence
       ORDER BY occurrence DESC
       LIMIT 3) AS Morning;
 
-SELECT pickUpLocation
+SELECT pickUpLocation AS afternoonPickUpLocation
 FROM (SELECT pickUpLocation, count(pickUpLocation) AS occurrence
       FROM RentHistory
       WHERE time >= '12:00'
@@ -16,7 +16,7 @@ FROM (SELECT pickUpLocation, count(pickUpLocation) AS occurrence
       ORDER BY occurrence DESC
       LIMIT 3) AS Afternoon;
 
-SELECT pickUpLocation
+SELECT pickUpLocation AS eveningPickUpLocation
 FROM (SELECT pickUpLocation, count(pickUpLocation) AS occurrence
       FROM RentHistory
       WHERE time >= '17:00'
@@ -25,7 +25,7 @@ FROM (SELECT pickUpLocation, count(pickUpLocation) AS occurrence
       ORDER BY occurrence DESC
       LIMIT 3) AS Evening;
 
-SELECT destinationLocation
+SELECT destinationLocation AS morningDestinationLocation
 FROM (SELECT destinationLocation, count(destinationLocation) AS occurrence
       FROM RentHistory
       WHERE time >= '7:00'
@@ -34,7 +34,7 @@ FROM (SELECT destinationLocation, count(destinationLocation) AS occurrence
       ORDER BY occurrence DESC
       LIMIT 3) AS Morning;
 
-SELECT destinationLocation
+SELECT destinationLocation AS afternoonDestinationLocation
 FROM (SELECT destinationLocation, count(destinationLocation) AS occurrence
       FROM RentHistory
       WHERE time >= '12:00'
@@ -43,7 +43,7 @@ FROM (SELECT destinationLocation, count(destinationLocation) AS occurrence
       ORDER BY occurrence DESC
       LIMIT 3) AS Afternoon;
 
-SELECT destinationLocation
+SELECT destinationLocation AS eveningDestinationLocation
 FROM (SELECT destinationLocation, count(destinationLocation) AS occurrence
       FROM RentHistory
       WHERE time >= '17:00'

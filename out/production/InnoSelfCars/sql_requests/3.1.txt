@@ -2,7 +2,7 @@ SELECT DISTINCT R.servedCar
 FROM RentHistory R,
      Cars C
 WHERE R.servedCar = C.cid
-  AND R.customer = '12'
-  AND C.color = 'red'
+  AND R.customer = '#Customer, for example 12:#'
+  AND C.color = '#Car color, for example red:#'
   AND C.cid LIKE 'AN%'
-  AND R.date = '2018-11-24';
+  AND R.date = '#Date, for example 2018-11-24:#';
